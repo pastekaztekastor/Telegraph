@@ -51,13 +51,13 @@ public class LaunchScreen extends Screen{
     textFont(mTextures.mFont, 36);
     textAlign(CENTER, CENTER);
     fill(mTextures.mTextColor);
-    text("Insert your name", width/2, height/2 - 64);
+    text("Entre ton pseudo", width/2, height/2 - 64);
     String str = mCurrentName;
     if(second()%2 == 0){
       str+="|";
     }
     text(str, width/2, height/2);
-    text("[press enter]", width/2, height/2 + 64);
+    text("[Appui sur Entrée]", width/2, height/2 + 64);
   }
 
   void keyPressed(){

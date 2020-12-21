@@ -34,4 +34,15 @@ public class Level{
   public int getValueAt(int x, int y){
     return mLevelMatrix[y][x]; 
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
