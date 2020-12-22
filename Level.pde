@@ -7,7 +7,7 @@ public class Level{
   public Level(File filePath){
     String[] file = loadStrings("/levels/" + filePath.getName());
     String name = split(filePath.getName(), '.')[0];
-    
+
     mLevelMatrix = new int[file.length][split(file[0],' ').length];
 
     for(int i = 0; i < file.length; i++){
@@ -34,15 +34,4 @@ public class Level{
   public int getValueAt(int x, int y){
     return mLevelMatrix[y][x]; 
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }

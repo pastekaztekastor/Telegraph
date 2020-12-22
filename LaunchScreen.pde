@@ -15,18 +15,9 @@ public class LaunchScreen extends Screen{
 
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
-    drawTitle();
+    mTextures.drawTitle();
     drawTiles();
     drawBody();
-  }
-
-  void drawTitle(){
-    textFont(mTextures.mFont, 64);
-    textAlign(CENTER, CENTER);
-    fill(mTextures.mTextShadowColor);
-    text("Telegraph", width/2+4, 84);
-    fill(mTextures.mTextColor);
-    text("Telegraph", width/2, 80);
   }
 
   void drawTiles(){
@@ -47,7 +38,7 @@ public class LaunchScreen extends Screen{
       str+="|";
     }
     text(str, width/2, height/2);
-    if(mCurrentName.length() > 0){
+    if(mCurrentName.length() > 0 && millis()/100%10 >= 5){
       text("[Appui sur Entrée]", width/2, height/2 + 64);
     }
   }

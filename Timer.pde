@@ -32,10 +32,11 @@ public class Timer{
   public Time getTime(){
     return mState ? new Time(millis() - mMillisAtStart) : new Time(mTimeAtPause - mMillisAtStart);
   }
-  
+  /*
   public void reset(){
     
   }
+  */
 }
 
 public class Time{

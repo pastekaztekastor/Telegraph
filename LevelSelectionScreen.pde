@@ -21,18 +21,9 @@ public class LevelSelectionScreen extends Screen{
 
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
-    drawTitle();
+    mTextures.drawTitle();
     drawLevels();
     drawBackbutton();
-  }
-
-  void drawTitle(){
-    textFont(mTextures.mFont, 64);
-    textAlign(CENTER, CENTER);
-    fill(mTextures.mTextShadowColor);
-    text("Telegraph", width/2+4, 84);
-    fill(mTextures.mTextColor);
-    text("Telegraph", width/2, 80);
   }
 
   void drawLevels(){
@@ -40,7 +31,7 @@ public class LevelSelectionScreen extends Screen{
     textFont(mTextures.mFont, 36);
     textAlign(CENTER, CENTER);
     fill(mTextures.mTextColor);
-    text("niveaux", width/2 - gap, height/2 - 150);
+    text("niveau", width/2 - gap, height/2 - 150);
     text("meilleur", width/2 + gap, height/2 - 200);
     text("score", width/2 + gap, height/2 - 150);
 

@@ -5,7 +5,7 @@ public class MenuScreen extends Screen{
   private TextureDeleguate mTextures;
 
   private int mSelectedMenu;
-  private String[] menuContent = {"jouer", "Scores", "Aide", "Editeur", "Crédits"};
+  private String[] menuContent = {"jouer", "Scores", "Aide", "Editeur", "Crédits", "Quitter"};
 
   MenuScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures){
     mScreenDeleguate = screenDeleguate;
@@ -16,7 +16,7 @@ public class MenuScreen extends Screen{
 
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
-    drawTitle();
+    mTextures.drawTitle();
     drawMenu(menuContent, mSelectedMenu);
   }
 
@@ -33,15 +33,6 @@ public class MenuScreen extends Screen{
         image(mTextures.mRightSelector, width/2 + gap, height/2 - 95 + i * 50);
       }
     }
-  }
-
-  void drawTitle(){
-    textFont(mTextures.mFont, 64);
-    textAlign(CENTER, CENTER);
-    fill(mTextures.mTextShadowColor);
-    text("Telegraph", width/2+4, 84);
-    fill(mTextures.mTextColor);
-    text("Telegraph", width/2, 80);
   }
 
   void keyPressed(){
@@ -65,7 +56,7 @@ public class MenuScreen extends Screen{
         break;
       case 1 :
         // Score board
-        println("Score board");
+        mScreenDeleguate.setScoreScreen();
         break;
       case 2 :
         // Help

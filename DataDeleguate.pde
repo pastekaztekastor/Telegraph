@@ -29,6 +29,18 @@ class DataDeleguate{
     }
   }
 
+  ArrayList<Player> getPlayersOfLevel(int levelId){
+    ArrayList<Player> list = new ArrayList<Player>();
+    for(Player player : mPlayers){
+      if(player.getTimeAtLevel(mLevels.get(levelId).getname()).toInteger() >= 0){
+        println(player.getTimeAtLevel(mLevels.get(levelId).getname()).toInteger());
+        // Le joueur a déja joué sur le niveau recherché, l'ajouter au tableau
+        list.add(player);
+      }
+    }
+    return list;
+  }
+
   void setCurrentPlayerTo(String name){
     for(Player player : mPlayers){
       if(player.mPlayerName.equals(name)){

@@ -47,6 +47,10 @@ class ScreenDeleguate {
   public final void setLaunchScreen() {
     this.mCurrentScreen = new LaunchScreen(this, mData, mTextures);
   }
+  
+  public final void setScoreScreen(){
+    this.mCurrentScreen = new ScoreScreen(this, mData, mTextures); 
+  }
 
   public final void setMenuScreen() {
     this.mCurrentScreen = new MenuScreen(this, mData, mTextures);

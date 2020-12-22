@@ -8,6 +8,7 @@ int lastheight;
 int lastWidth;
 
 void setup() {
+  background(0);
   frameRate(1000);
   size(640,860);
   noSmooth();
@@ -29,7 +30,6 @@ void draw(){
     sizeChanged();
   }
   screen.drawScreen();
-  text((int)frameRate, 100, 20);
 }
 
 void sizeChanged(){

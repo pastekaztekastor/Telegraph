@@ -36,6 +36,15 @@ public class TextureDeleguate{
     // Color palette : #FF050D #FFD338 #FF1F26 #05FF47 #122BFF
   }
   
+  public void drawTitle(){
+    textFont(mFont, 64);
+    textAlign(CENTER, CENTER);
+    fill(mTextShadowColor);
+    text("Telegraph", width/2+4, 84);
+    fill(mTextColor);
+    text("Telegraph", width/2, 80);
+  }
+  
   public void drawTelegraphTile(float xPos, float yPos, float tileSize) {
     float tilePad = tileSize / 8.0;
     rectMode(CORNER);
