@@ -39,6 +39,11 @@ class ScreenDeleguate {
   public void mouseIsReleased(){
     this.mCurrentScreen.mouseReleased(); 
   }
+  
+  public final void setHelpScreen(){
+    this.mCurrentScreen = new HelpScreen(this, mData, mTextures);
+  }
+  
   public final void setLaunchScreen() {
     this.mCurrentScreen = new LaunchScreen(this, mData, mTextures);
   }

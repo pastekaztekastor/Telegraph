@@ -69,7 +69,7 @@ public class MenuScreen extends Screen{
         break;
       case 2 :
         // Help
-        println("Help");
+        mScreenDeleguate.setHelpScreen();
         break;
       case 3 :
         // Editor

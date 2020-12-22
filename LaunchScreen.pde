@@ -33,18 +33,8 @@ public class LaunchScreen extends Screen{
     rectMode(CORNER);
     int tileSize = 56;
     int gap = tileSize / 8;
-    int tilePad = tileSize / 8;
-    fill(mTextures.mEmptyCellColor);
-    rect(width / 2 + gap, height / 4, tileSize, tileSize);
-    fill(mTextures.mBackgroundColor);
-    rect(width / 2 + gap + tilePad, height / 4 + tilePad, tilePad * 6, tilePad * 6);
-
-    fill(mTextures.mWorkingCellColor);
-    rect(width / 2 - gap - tileSize, height/4, tileSize, tileSize);
-    fill(mTextures.mBackgroundColor);
-    rect(width / 2 - gap - tileSize + tilePad, height / 4 + tilePad, tilePad * 6, tilePad * 6);
-    fill(mTextures.mWorkingCellColor);
-    rect(width / 2 - gap - tileSize + tilePad * 3, height / 4 + tilePad * 3, tilePad * 2, tilePad * 2);
+    mTextures.drawTelegraphTile(width/2 - tileSize - gap, height/4, tileSize);
+    mTextures.drawEmptyTile(width/2 + gap, height/4, tileSize);
   }
 
   void drawBody(){
@@ -57,7 +47,9 @@ public class LaunchScreen extends Screen{
       str+="|";
     }
     text(str, width/2, height/2);
-    text("[Appui sur Entrée]", width/2, height/2 + 64);
+    if(mCurrentName.length() > 0){
+      text("[Appui sur Entrée]", width/2, height/2 + 64);
+    }
   }
 
   void keyPressed(){

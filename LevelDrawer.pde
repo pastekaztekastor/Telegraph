@@ -80,58 +80,26 @@ public class LevelDrawer {
   private void drawLevel() {
     Position tileHovered = getPositionOfTileHovered();
     if (tileHovered != null) {
-      drawSelectorTile(mStartingX + (mTileSize + mGap) * tileHovered.getX() - mGap / 2, mStartingY + (mTileSize + mGap) * tileHovered.getY() - mGap / 2, mTileSize + mGap);
+      mTextures.drawSelectorTile(mStartingX + (mTileSize + mGap) * tileHovered.getX() - mGap / 2, mStartingY + (mTileSize + mGap) * tileHovered.getY() - mGap / 2, mTileSize + mGap);
     }
     for (int i = 0; i < mCurrentlevel.getHeight(); i++) {
       for (int j = 0; j < mCurrentlevel.getWidth(); j++) {
         // soit un 0 soit un 1
         if (mCurrentlevel.mLevelMatrix[i][j] == 1) {
           if (mPathTable[i][j] == 0) {
-            drawTelegraphTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
+            mTextures.drawTelegraphTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
           } else {
-            drawEmptyTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
+            mTextures.drawEmptyTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
           }
         } else {
           if (mPathTable[i][j] == 0) {
-            drawEmptyTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
+            mTextures.drawEmptyTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
           } else {
-            drawTelegraphTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
+            mTextures.drawTelegraphTile(mStartingX + (mTileSize + mGap) * j, mStartingY + (mTileSize + mGap) * i, mTileSize);
           }
         }
       }
     }
-  }
-
-  private void drawTelegraphTile(float xPos, float yPos, float tileSize) {
-    float tilePad = tileSize / 8.0;
-    rectMode(CORNER);
-    fill(mTextures.mWorkingCellColor);
-    rect(xPos, yPos, tileSize, tileSize);
-    fill(mTextures.mBackgroundColor);
-    rect(xPos + tilePad, yPos + tilePad, tilePad * 6, tilePad * 6);
-    fill(mTextures.mWorkingCellColor);
-    rect(xPos + tilePad * 3, yPos + tilePad * 3, tilePad * 2, tilePad * 2);
-  }
-
-  private void drawEmptyTile(float xPos, float yPos, float tileSize) {
-    float tilePad = tileSize / 8.0;
-    rectMode(CORNER);
-    fill(mTextures.mEmptyCellColor);
-    rect(xPos, yPos, tileSize, tileSize);
-    fill(mTextures.mBackgroundColor);
-    rect(xPos + tilePad, yPos + tilePad, tilePad * 6, tilePad * 6);
-  }
-
-  private void drawSelectorTile(float xPos, float yPos, float tileSize) {
-    float tilePad = tileSize / 10.0;
-    float cornerSize = tilePad*3 - second()%2*tilePad;
-    float gap = tileSize / 2;
-    rectMode(CORNER);
-    fill(mTextures.mSelectorCellColor);
-    rect(xPos, yPos, cornerSize, cornerSize);
-    rect(xPos + tileSize-cornerSize, yPos, cornerSize, cornerSize);
-    rect(xPos, yPos + tileSize-cornerSize, cornerSize, cornerSize);
-    rect(xPos + tileSize-cornerSize, yPos + tileSize-cornerSize, cornerSize, cornerSize);
   }
 
   private boolean isPositionInTheLevel(Position pos) {

@@ -33,7 +33,40 @@ public class TextureDeleguate{
     mSelectorCellColor = color(5, 255, 71);
     mLineColor = color(18, 43, 255);
     mLineDotColor = color(43, 65, 255);
+    // Color palette : #FF050D #FFD338 #FF1F26 #05FF47 #122BFF
+  }
+  
+  public void drawTelegraphTile(float xPos, float yPos, float tileSize) {
+    float tilePad = tileSize / 8.0;
+    rectMode(CORNER);
+    fill(mWorkingCellColor);
+    rect(xPos, yPos, tileSize, tileSize);
+    fill(mBackgroundColor);
+    rect(xPos + tilePad, yPos + tilePad, tilePad * 6, tilePad * 6);
+    fill(mWorkingCellColor);
+    rect(xPos + tilePad * 3, yPos + tilePad * 3, tilePad * 2, tilePad * 2);
+  }
+
+  public void drawEmptyTile(float xPos, float yPos, float tileSize) {
+    float tilePad = tileSize / 8.0;
+    rectMode(CORNER);
+    fill(mEmptyCellColor);
+    rect(xPos, yPos, tileSize, tileSize);
+    fill(mBackgroundColor);
+    rect(xPos + tilePad, yPos + tilePad, tilePad * 6, tilePad * 6);
+  }
+
+  public void drawSelectorTile(float xPos, float yPos, float tileSize) {
+    float tilePad = tileSize / 10.0;
+    float cornerSize = tilePad*3 - second()%2*tilePad;
+    float gap = tileSize / 2;
+    rectMode(CORNER);
+    fill(mSelectorCellColor);
+    rect(xPos, yPos, cornerSize, cornerSize);
+    rect(xPos + tileSize-cornerSize, yPos, cornerSize, cornerSize);
+    rect(xPos, yPos + tileSize-cornerSize, cornerSize, cornerSize);
+    rect(xPos + tileSize-cornerSize, yPos + tileSize-cornerSize, cornerSize, cornerSize);
   }
 }
 
-// Color palette : #FF050D #FFD338 #FF1F26 #05FF47 #122BFF
+  
