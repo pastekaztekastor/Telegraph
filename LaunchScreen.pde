@@ -39,7 +39,7 @@ public class LaunchScreen extends Screen{
     }
     text(str, width/2, height/2);
     if(mCurrentName.length() > 0 && millis()/100%10 >= 5){
-      text("[Appui sur Entrée]", width/2, height/2 + 64);
+      text("[Appuie sur Entrée]", width/2, height/2 + 64);
     }
   }
 

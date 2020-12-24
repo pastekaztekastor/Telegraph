@@ -5,7 +5,7 @@ public class MenuScreen extends Screen{
   private TextureDeleguate mTextures;
 
   private int mSelectedMenu;
-  private String[] menuContent = {"jouer", "Scores", "Aide", "Editeur", "Crédits", "Quitter"};
+  private String[] menuContent = {"Jouer", "Scores", "Aide", "Editeur", "Crédits", "Quitter"};
 
   MenuScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures){
     mScreenDeleguate = screenDeleguate;
