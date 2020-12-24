@@ -13,7 +13,7 @@ public class LevelDrawer {
   private float mTileSize;
   private float mStartingX;
   private float mStartingY;
-  float mGap;
+  private float mGap;
 
   public LevelDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level) {
     mData = dataDeleguate;
@@ -237,13 +237,17 @@ public class LevelDrawer {
     return new Position((int)x, (int)y);
   }
   
-  void resetGame(){
+  public boolean isMouseOnTheGrid(){
+     return getPositionOfTileHovered() != null;
+  }
+  
+  public void resetGame(){
     mTimer.stop();
     mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
     updateLevelData(); 
   }
   
-  void mouseReleased(){
+  public void mouseReleased(){
     if(mCurrentPlayerPath.length == 1){
       mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
       updateLevelData();
@@ -252,14 +256,14 @@ public class LevelDrawer {
     }
   }
 
-  void mouseDragged(){
+  public void mouseDragged(){
     Position pos = getPositionOfTileHovered();
     if(pos != null){
       addNewPointToPath(pos, false, true);
     }
   }
   
-  void mousePressed(){
+  public void mousePressed(){
     Position pos = getPositionOfTileHovered();
     if(pos != null){
       addNewPointToPath(pos, true, true);

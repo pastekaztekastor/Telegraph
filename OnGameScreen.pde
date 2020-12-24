@@ -20,6 +20,7 @@ public class OnGameScreen extends Screen{
     drawHeader();
     mLeveldrawer.draw();
     drawFooter();
+    mouseMoved();
   }
 
   private void drawHeader(){
@@ -85,6 +86,16 @@ public class OnGameScreen extends Screen{
         // Relancer la partie
         mLeveldrawer.resetGame();
       }
+    }
+  }
+  
+  void mouseMoved(){
+    if(isHoveringButtonID() != -1 || (mLeveldrawer.isMouseOnTheGrid() && !mousePressed)){
+      cursor(HAND);
+    } else if(mLeveldrawer.isMouseOnTheGrid() && mousePressed){
+      cursor(MOVE);
+    } else {
+      cursor(ARROW);
     }
   }
 

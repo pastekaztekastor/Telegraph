@@ -12,6 +12,7 @@ public class MenuScreen extends Screen{
     mData = dataDeleguate;
     mTextures = textures;
     mSelectedMenu = 0;
+    mouseMoved();
   }
 
   public void drawScreen(){
@@ -37,9 +38,9 @@ public class MenuScreen extends Screen{
 
   void keyPressed(){
     if (key == CODED) {
-      if (keyCode == UP && mSelectedMenu >= 1) {
+      if (keyCode == UP && mSelectedMenu > 0) {
         mSelectedMenu--;
-      } else if (keyCode == DOWN && mSelectedMenu <= 3) {
+      } else if (keyCode == DOWN && mSelectedMenu < menuContent.length -1) {
         mSelectedMenu++;
       }
     }
@@ -69,6 +70,11 @@ public class MenuScreen extends Screen{
       case 4 :
         // Credits
         println("Credits");
+        break;
+      case 5 :
+        // Credits
+        mScreenDeleguate.setLaunchScreen();
+        println("Quitter");
     }
   }
 
@@ -94,6 +100,11 @@ public class MenuScreen extends Screen{
   void mouseMoved(){
     if(isHoveringMenuItemId() != -1){
       mSelectedMenu = isHoveringMenuItemId();
+      // Afficher curseur de sélection
+      cursor(HAND);
+    } else {
+      // Afficher curseur basique
+      cursor(ARROW);
     }
   }
 }

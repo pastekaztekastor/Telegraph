@@ -13,11 +13,10 @@ int lastWidth;
 void setup() {
   SmoothCanvas sc = (SmoothCanvas) getSurface().getNative();
   JFrame frame = (JFrame) sc.getFrame();
-  Dimension dim = new Dimension(400, 300);
+  Dimension dim = new Dimension(640, 900);
   frame.setMinimumSize(dim);
   
   background(0);
-  frameRate(1000);
   size(640,860);
   noSmooth();
   noStroke();
@@ -27,7 +26,7 @@ void setup() {
   data = new DataDeleguate();
   textures = new TextureDeleguate();
   screen = new ScreenDeleguate(data, textures);
-  screen.setScoreScreen();
+  screen.setLaunchScreen();
 }
 
 void draw(){

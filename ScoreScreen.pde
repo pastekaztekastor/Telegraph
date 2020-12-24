@@ -19,10 +19,12 @@ public class ScoreScreen extends Screen{
     mCurrentDisplayedLevelID     = 0;
     mCurrentFirstDisplayedPlayer = 0;
     refreshList();
+    
   }
   
   // Affiche l'écran complet
   public void drawScreen(){
+    mouseMoved();
     background(mTextures.mBackgroundColor);
     mTextures.drawTitle();
     drawScores();

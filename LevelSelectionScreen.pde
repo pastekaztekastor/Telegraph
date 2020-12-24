@@ -17,6 +17,7 @@ public class LevelSelectionScreen extends Screen{
     mSelectedLevel = 0;
     mOnBackButton = false;
     mMouseHavePriority = false;
+    mouseMoved();
   }
 
   public void drawScreen(){
@@ -174,6 +175,7 @@ public class LevelSelectionScreen extends Screen{
       mOnBackButton = true;
       mScreenDeleguate.setMenuScreen();
     }
+    mouseMoved();
   }
 
   void mouseMoved(){
@@ -182,9 +184,15 @@ public class LevelSelectionScreen extends Screen{
       mMouseHavePriority = true;
       mOnBackButton = false;
       mSelectedLevel = id;
+      cursor(HAND);
     } else if(id == -4){
       mMouseHavePriority = true;
       mOnBackButton = true;
+      cursor(HAND);
+    }else if(id == -2 || id == -3){
+      cursor(HAND);
+    } else {
+      cursor(ARROW);
     }
   }
 }
