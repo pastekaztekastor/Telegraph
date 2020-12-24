@@ -1,3 +1,6 @@
+import processing.awt.PSurfaceAWT.SmoothCanvas;
+import javax.swing.JFrame;
+import java.awt.Dimension;
 import java.util.Arrays;
 
 DataDeleguate data;
@@ -8,6 +11,11 @@ int lastheight;
 int lastWidth;
 
 void setup() {
+  SmoothCanvas sc = (SmoothCanvas) getSurface().getNative();
+  JFrame frame = (JFrame) sc.getFrame();
+  Dimension dim = new Dimension(400, 300);
+  frame.setMinimumSize(dim);
+  
   background(0);
   frameRate(1000);
   size(640,860);
@@ -19,8 +27,7 @@ void setup() {
   data = new DataDeleguate();
   textures = new TextureDeleguate();
   screen = new ScreenDeleguate(data, textures);
-  screen.setLaunchScreen();
-  //screen.setOnGameScreen(data.mLevels.get(0));
+  screen.setScoreScreen();
 }
 
 void draw(){

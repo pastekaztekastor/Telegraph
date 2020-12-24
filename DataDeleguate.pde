@@ -2,7 +2,7 @@ import java.util.*;
 
 class DataDeleguate{
   public Player mCurrentPlayer;
-  public ArrayList<Level> mLevels;
+  public ArrayList<Level> mLevels; // faudra faire les getter setter
   public ArrayList<Player> mPlayers;
 
   DataDeleguate(){
@@ -23,7 +23,6 @@ class DataDeleguate{
     mPlayers = new ArrayList<Player>();
     File[] files = listFiles("/players");
     for(int i = 0; i < files.length; i++){
-      //println(split(files[i].getName(), '.')[0]);
       Player player = new Player(split(files[i].getName(), '.')[0]);
       mPlayers.add(player);
     }

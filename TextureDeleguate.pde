@@ -6,6 +6,8 @@ public class TextureDeleguate{
 
   private final PImage mUpArrow;
   private final PImage mDownArrow;
+  private final PImage mLeftArrow;
+  private final PImage mRightArrow;
 
   private final color mBackgroundColor;
   private final color mTextColor;
@@ -24,6 +26,8 @@ public class TextureDeleguate{
 
     mUpArrow = loadImage("data/up_arrow.png");
     mDownArrow = loadImage("data/down_arrow.png");
+    mLeftArrow = loadImage("data/left_arrow.png");
+    mRightArrow = loadImage("data/right_arrow.png");
 
     mBackgroundColor = color(5, 5, 5);
     mTextColor = color(255);                                  // 255,211,56
