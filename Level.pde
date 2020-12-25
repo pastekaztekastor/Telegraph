@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public class Level{
+  private final static String LEVEL_PATH = "/levels/";
   String mLevelName;
   int[][] mLevelMatrix;
 
   public Level(File filePath){
-    String[] file = loadStrings("/levels/" + filePath.getName());
+    String[] file = loadStrings(LEVEL_PATH + filePath.getName());
     String name = split(filePath.getName(), '.')[0];
 
     mLevelMatrix = new int[file.length][split(file[0],' ').length];
@@ -27,6 +28,20 @@ public class Level{
         mLevelMatrix[i][j] = 1;
       }
     }
+  }
+  
+  public void generateLevelFile(int[][] mPathMatrix){
+    String[] lines = new String[mPathMatrix.length];
+    for(int i = 0 ; i < mPathMatrix.length; i++){
+      lines[i] = "";
+      for(int j = 0; j < mPathMatrix[i].length; j++){
+        lines[i] += String.valueOf(mPathMatrix[i][j]);
+        if(j != mPathMatrix[i].length - 1){
+          lines[i] += ' ';
+        }
+      }
+    }
+    saveStrings(LEVEL_PATH + mLevelName + ".txt", lines);
   }
   
   public int getWidth(){

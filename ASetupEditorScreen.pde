@@ -5,7 +5,7 @@ public class SetupEditorScreen extends Screen{
   private final TextureDeleguate  mTextures;
   
   private final Level mCurrentlevel;
-  private final EditorDrawer mLeveldrawer;
+  private final EditorDrawer mEditordrawer;
   private TextButton  mBackButton;
   private TextButton  mCreateButton;
  
@@ -14,14 +14,14 @@ public class SetupEditorScreen extends Screen{
     mData             = dataDeleguate;
     mTextures         = textures;
     mCurrentlevel     = level;
-    mLeveldrawer      = new EditorDrawer(dataDeleguate, textures, level);
+    mEditordrawer     = new EditorDrawer(dataDeleguate, textures, level);
     mBackButton       = new TextButton(width/2 - 150, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mCreateButton     = new TextButton(width/2 + 150, height - 50, "Créer", 36, mTextures.mLeftSelector);
   }
   
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
-    mLeveldrawer.draw();
+    mEditordrawer.draw();
     fill(mTextures.mTextColor);
     mBackButton.drawButton();
     mCreateButton.drawButton();
@@ -34,7 +34,6 @@ public class SetupEditorScreen extends Screen{
     text("Niveau : " + mCurrentlevel.getname(), width/2, 100.);
     textFont(mTextures.mFont, 18);
     text("Dessinez le niveau", width/2, 150.);
-    
   }
   
   public void mouseClicked(){
@@ -43,20 +42,22 @@ public class SetupEditorScreen extends Screen{
       mScreenDeleguate.setMenuScreen();
     } else if(mCreateButton.isMouseOnIt()){
       // Le bouton créer est cliqué, on créé le niveau et on lance la page de création
-      
+      mEditordrawer.saveLevel();
+      mData.mLevels.add(mCurrentlevel);
+      mScreenDeleguate.setMenuScreen();
     }
   }
 
   void mouseReleased(){
-    mLeveldrawer.mouseReleased();
+    mEditordrawer.mouseReleased();
   }
 
   void mouseDragged(){
-    mLeveldrawer.mouseDragged();
+    mEditordrawer.mouseDragged();
   }
   
   void mousePressed(){
-    mLeveldrawer.mousePressed();
+    mEditordrawer.mousePressed();
   }
   
   public void mouseMoved(){
@@ -71,6 +72,6 @@ public class SetupEditorScreen extends Screen{
     // La taille de la fenetre change, je recalcule les positions des boutons et champs de texte
     mBackButton.setPosition(width/2 - 150, height - 50);
     mCreateButton.setPosition(width/2 + 150, height - 50);
-    mLeveldrawer.setSize();
+    mEditordrawer.setSize();
   }
 }

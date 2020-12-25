@@ -5,6 +5,30 @@ public class LevelDrawer extends FrameDrawer{
   LevelDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     super(dataDeleguate, textures, level);
   }
+
+  public Time getScore(){
+    return mTimer.getTime();
+  }
+  
+  void updateLevelData() {
+    updatePathTable();
+    checkWin();
+  }
+
+  private void checkWin() {
+    for (int i = 0; i < mCurrentlevel.getHeight(); i++) {
+      for (int j = 0; j < mCurrentlevel.getWidth(); j++) {
+        if (mCurrentlevel.mLevelMatrix[i][j] - mPathTable[i][j] != 0) {
+          // Il reste au moins une case qui empèche de gagner, la fonction s'arrete
+          return;
+        }
+      }
+    }
+    // Le joueur a gagné, on sauvegarde le temps
+    mTimer.pause();
+    mData.getCurrentplayer().setNewScore(mCurrentlevel, mTimer.getTime().toInteger());
+    //screen.setMenuScreen();
+  }
 }
 
 public class EditorDrawer extends FrameDrawer{
@@ -12,17 +36,25 @@ public class EditorDrawer extends FrameDrawer{
   EditorDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     super(dataDeleguate, textures, level);
   }
+  
+  public void saveLevel(){
+    mCurrentlevel.generateLevelFile(mPathTable);
+  }
+  
+  void updateLevelData() {
+    updatePathTable();
+  }
 }
 
 abstract class FrameDrawer {
-  private final DataDeleguate mData;
-  private final TextureDeleguate mTextures;
+  protected final DataDeleguate mData;
+  protected final TextureDeleguate mTextures;
 
-  private final Timer mTimer;
+  protected final Timer mTimer;
 
-  private final Level mCurrentlevel;
-  private Position[] mCurrentPlayerPath;
-  private int[][] mPathTable;
+  protected final Level mCurrentlevel;
+  protected Position[] mCurrentPlayerPath;
+  protected int[][] mPathTable;
 
   private float mTileSize;
   private float mStartingX;
@@ -43,10 +75,6 @@ abstract class FrameDrawer {
   public void draw() {
     drawLevel();
     drawPath();
-  }
-
-  public Time getScore(){
-    return mTimer.getTime();
   }
 
   void setSize() {
@@ -115,6 +143,8 @@ abstract class FrameDrawer {
       }
     }
   }
+  
+  abstract void updateLevelData();
 
   private boolean isPositionInTheLevel(Position pos) {
     return pos.getX() >= 0
@@ -123,12 +153,7 @@ abstract class FrameDrawer {
       && pos.getY() < mCurrentlevel.getHeight();
   }
 
-  private void updateLevelData() {
-    updatePathTable();
-    checkWin();
-  }
-
-  private void updatePathTable() {
+  protected void updatePathTable() {
     for (int i = 0; i < mPathTable.length; i++) {
       for (int j = 0; j < mPathTable[i].length; j++) {
         mPathTable[i][j] = 0;
@@ -141,22 +166,6 @@ abstract class FrameDrawer {
         mPathTable[pos.getY()][pos.getX()] = 0;
       }
     }
-  }
-
-  private void checkWin() {
-    for (int i = 0; i < mCurrentlevel.getHeight(); i++) {
-      for (int j = 0; j < mCurrentlevel.getWidth(); j++) {
-        if (mCurrentlevel.mLevelMatrix[i][j] - mPathTable[i][j] != 0) {
-          // Il reste au moins une case qui empèche de gagner, la fonction s'arrete
-          return;
-        }
-      }
-    }
-    // Le joueur a gagné, on sauvegarde le temps
-    mTimer.pause();
-    mData.getCurrentplayer().setNewScore(mCurrentlevel, mTimer.getTime().toInteger());
-    println(mTimer.getTime().toStringFormat(2));
-    //screen.setMenuScreen();
   }
 
   private void addNewPointToPath(Position pos, boolean fromSingleTap, boolean tapHolded) {

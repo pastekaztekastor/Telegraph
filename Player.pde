@@ -35,7 +35,6 @@ public class Player {
       if (getTimeAtLevel(level.getname()).toInteger() > time) {
         // Le joueur viens de battre son score, alors le réécrire
         mScores.replace(level.getname(), time);
-        println("New score !");
         rewritePlayerFile();
         return;
       } else {
@@ -44,7 +43,6 @@ public class Player {
       }
     }
     // Changer la valeur dans le fichier
-    println("Valeur enregistrée");
     mScores.put(level.getname(), time);
     rewritePlayerFile();
   }
