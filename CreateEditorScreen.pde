@@ -1,5 +1,5 @@
 
-public class CreateEditorScreen extends Screen{
+public class CreateEditorScreen extends Screen implements ClickListener{
   private final ScreenDeleguate   mScreenDeleguate;
   private final DataDeleguate     mData;
   private final TextureDeleguate  mTextures;
@@ -21,10 +21,18 @@ public class CreateEditorScreen extends Screen{
     mWidthTextField   = new TextField(width/2 - 100, height/2 - 60, 200, 50, 2);
     mHeightTextField  = new TextField(width/2 - 100, height/2 + 10, 200, 50, 2);
     mNameTextField    = new TextField(width/2 - 100, height/2 + 80, 200, 50, 10);
+    
+    // J'enregistre l'objet courant comme écouteur
+    mBackButton.addListener(this);
+    mCreateButton.addListener(this);
+    
+    // Je paramètre les champs de texte
     mWidthTextField.setFilter(TextField.ONLY_NUMBERS);
     mHeightTextField.setFilter(TextField.ONLY_NUMBERS);
     mNameTextField.setFilter(TextField.NUMBERS_AND_CHARACTERS);
     mWidthTextField.setActive(true);
+    
+    // J'actualise le curseur
     mouseMoved();
   }
 
@@ -47,16 +55,17 @@ public class CreateEditorScreen extends Screen{
     text(mErrorMessage, width/2, height - 100); 
   }
   
-  public void mouseClicked(){
-    mWidthTextField.isClick();
-    mHeightTextField.isClick();
-    mNameTextField.isClick();
-    if(mBackButton.isMouseOnIt()){
+  public void onClick(Button src){
+    if(src == mBackButton){
       // Le bouton Retour est cliqué, on affiche le menu
       mScreenDeleguate.setMenuScreen();
-    } else if(mCreateButton.isMouseOnIt()){
+    } else if(src == mCreateButton){
       // Le bouton créer est cliqué, on créé le niveau et on lance la page de création
       // Il faut vérifier que le nom choisis n'existe pas déja
+      if(mWidthTextField.getText().length() == 0 || mHeightTextField.getText().length() == 0 || mNameTextField.getText().length() == 0){
+        mErrorMessage = "Tu dois remplir tout les champs";
+        return;
+      }
       int levelWidth  = Integer.parseInt(mWidthTextField.getText());
       int levelHeight = Integer.parseInt(mHeightTextField.getText());
       if(levelWidth < 2 || levelWidth > 25 || levelHeight < 2 || levelHeight > 25){
@@ -73,6 +82,17 @@ public class CreateEditorScreen extends Screen{
       Level level = new Level(levelWidth, levelHeight, mNameTextField.getText());
       mScreenDeleguate.setSetupEditorScreen(level);
     }
+    // La page est changée, j'enlève les listeners
+    mBackButton.removeListener(this);
+    mCreateButton.removeListener(this);
+  }
+  
+  public void mouseClicked(){
+    mWidthTextField.isClick();
+    mHeightTextField.isClick();
+    mNameTextField.isClick();
+    mCreateButton.isClick();
+    mBackButton.isClick();
   }
   
   public void keyPressed(){
@@ -84,6 +104,7 @@ public class CreateEditorScreen extends Screen{
   
   public void mouseMoved(){
     // La souris bouge, je préviens mes boutons et mes champs de texte
+    // Si la souris n'est sur aucun, je met le curseur par défaut
     if(!mWidthTextField.isMouseOnIt() 
         && !mHeightTextField.isMouseOnIt()
         && !mNameTextField.isMouseOnIt()

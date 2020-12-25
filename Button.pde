@@ -1,9 +1,17 @@
+import javax.swing.event.EventListenerList;
+
+abstract interface ClickListener extends EventListener{
+  void onClick(Button src);
+}
+
 abstract class Button{
   // La position est au centre de l'objet
   protected PVector   mPosition;
   protected float     mWidth;
   protected float     mHeight;
   protected boolean   mIsHovered;
+  
+  protected final EventListenerList listeners = new EventListenerList();
 
   protected Button(float x, float y, float width, float height){
     mPosition   = new PVector(x, y);
@@ -13,6 +21,34 @@ abstract class Button{
   }
 
   abstract void drawButton();
+  
+  public void addListener(ClickListener listener){
+    listeners.add(ClickListener.class, listener);
+  }
+  
+  // Supprime le listener mis en paramètre
+  public void removeListener(ClickListener listener){
+    listeners.remove(ClickListener.class, listener);
+  }
+  
+  
+  public void isClick(){
+    if(isMouseOnIt()){
+      fireButtonClicked(this);
+    }
+  }
+  
+  // Renvoie tout les listeners de type ClickListener
+  protected ClickListener[] getClickListeners() {
+    return listeners.getListeners(ClickListener.class);
+  }
+  
+  // J'alerte tout mes listeners que le bouton a été cliqué
+  protected void fireButtonClicked(Button src){
+    for(ClickListener listener : getClickListeners()){
+      listener.onClick(src);
+    }
+  }
 
   public void setPosition(float x, float y){
     mPosition.x = x;

@@ -31,6 +31,7 @@ public class Level{
   }
   
   public void generateLevelFile(int[][] mPathMatrix){
+    mLevelMatrix = mPathMatrix;
     String[] lines = new String[mPathMatrix.length];
     for(int i = 0 ; i < mPathMatrix.length; i++){
       lines[i] = "";
