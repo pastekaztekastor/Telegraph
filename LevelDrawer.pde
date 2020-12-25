@@ -1,6 +1,20 @@
 import java.util.ArrayList;
 
-public class LevelDrawer {
+public class LevelDrawer extends FrameDrawer{
+  
+  LevelDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
+    super(dataDeleguate, textures, level);
+  }
+}
+
+public class EditorDrawer extends FrameDrawer{
+  
+  EditorDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
+    super(dataDeleguate, textures, level);
+  }
+}
+
+abstract class FrameDrawer {
   private final DataDeleguate mData;
   private final TextureDeleguate mTextures;
 
@@ -15,7 +29,7 @@ public class LevelDrawer {
   private float mStartingY;
   private float mGap;
 
-  public LevelDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level) {
+  public FrameDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level) {
     mData = dataDeleguate;
     mTextures = textures;
     mCurrentlevel = level;

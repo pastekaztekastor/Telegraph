@@ -5,7 +5,7 @@ public class SetupEditorScreen extends Screen{
   private final TextureDeleguate  mTextures;
   
   private final Level mCurrentlevel;
-  private final LevelDrawer mLeveldrawer;
+  private final EditorDrawer mLeveldrawer;
   private TextButton  mBackButton;
   private TextButton  mCreateButton;
  
@@ -14,7 +14,7 @@ public class SetupEditorScreen extends Screen{
     mData             = dataDeleguate;
     mTextures         = textures;
     mCurrentlevel     = level;
-    mLeveldrawer      = new LevelDrawer(dataDeleguate, textures, level);
+    mLeveldrawer      = new EditorDrawer(dataDeleguate, textures, level);
     mBackButton       = new TextButton(width/2 - 150, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mCreateButton     = new TextButton(width/2 + 150, height - 50, "Créer", 36, mTextures.mLeftSelector);
   }
@@ -25,6 +25,16 @@ public class SetupEditorScreen extends Screen{
     fill(mTextures.mTextColor);
     mBackButton.drawButton();
     mCreateButton.drawButton();
+    drawHeader();
+  }
+  
+  private void drawHeader(){
+    textAlign(CENTER, CENTER);
+    textFont(mTextures.mFont, 36);
+    text("Niveau : " + mCurrentlevel.getname(), width/2, 100.);
+    textFont(mTextures.mFont, 18);
+    text("Dessinez le niveau", width/2, 150.);
+    
   }
   
   public void mouseClicked(){

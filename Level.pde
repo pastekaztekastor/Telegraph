@@ -24,7 +24,7 @@ public class Level{
     mLevelMatrix = new int[height][width];
     for(int i = 0 ; i < height; i++){
       for(int j = 0; j < width; j++){
-        mLevelMatrix[i][j] = 0;
+        mLevelMatrix[i][j] = 1;
       }
     }
   }

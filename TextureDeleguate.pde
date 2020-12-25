@@ -11,6 +11,7 @@ public class TextureDeleguate{
 
   private final color mBackgroundColor;
   private final color mTextColor;
+  private final color mErrorColor;
   private final color mTextShadowColor;
   private final color mEmptyCellColor;
   private final color mWorkingCellColor;
@@ -31,6 +32,7 @@ public class TextureDeleguate{
 
     mBackgroundColor = color(5, 5, 5);
     mTextColor = color(255);                                  // 255,211,56
+    mErrorColor = color(237, 28, 36);
     mTextShadowColor = color(255, 158, 147);                  // Pink
     mEmptyCellColor = color(237, 28, 36);                     // Red
     mWorkingCellColor = color(255);
