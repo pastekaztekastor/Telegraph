@@ -1,5 +1,5 @@
 abstract class Screen {
-  void drawScreen(){}
+  abstract void drawScreen();
   void keyPressed(){}
   void mouseClicked(){}
   void mouseMoved(){}

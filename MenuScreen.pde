@@ -65,7 +65,7 @@ public class MenuScreen extends Screen{
         break;
       case 3 :
         // Editor
-        println("Editor");
+        mScreenDeleguate.setCreateEditorScreen();
         break;
       case 4 :
         // Credits
