@@ -14,6 +14,10 @@ abstract class Button{
   
   abstract void drawButton();
   
+  public void setPosition(float x, float y){
+    mPosition.x = x;
+    mPosition.y = y;
+  }
   
   public boolean isMouseOnIt(){
     if(isMouseBetweenPos(mPosition.x - mWidth/2, mPosition.x + mWidth/2, mPosition.y - mHeight/2, mPosition.y + mHeight/2)){
@@ -56,13 +60,28 @@ public class ImageButton extends Button{
 public class TextButton extends Button{
   private String mText;
   private int    mFontSize;
+  private PImage mLeftArrow;
+  private PImage mRightArrow;
 
+  // Le bouton est nu, sans décoration lors du survol
   public TextButton(float x, float y, String text, int fontSize){
+    this(x, y, text, fontSize, null, null);
+  }
+  
+  // Si le bouton est survolé, une flèche apparaitra à gauche
+  public TextButton(float x, float y, String text, int fontSize, PImage leftArrow){
+    this(x, y, text, fontSize, leftArrow, null);
+  }
+  
+  // Si le bouton est survolé, une flèche apparaitra à gauche et a droite
+  public TextButton(float x, float y, String text, int fontSize, PImage leftArrow, PImage rightArrow){
     super(x, y, 0, fontSize);
     textSize(fontSize);
-    mWidth    = textWidth(text);
-    mText     = text;
-    mFontSize = fontSize;
+    mWidth      = textWidth(text);
+    mText       = text;
+    mFontSize   = fontSize;
+    mLeftArrow  = leftArrow;
+    mRightArrow = rightArrow;
   }
 
   public void drawButton(){
@@ -70,7 +89,14 @@ public class TextButton extends Button{
     textAlign(CENTER, CENTER);
     text(mText, mPosition.x, mPosition.y);
     if(mIsHovered){
-      
+      if(mLeftArrow != null){
+        imageMode(CENTER);
+        image(mLeftArrow, mPosition.x - mWidth/2 - mLeftArrow.width - second()%2*10, mPosition.y + 5);
+      }
+      if(mRightArrow != null){
+        imageMode(CENTER);
+        image(mRightArrow, mPosition.x + mWidth/2 + mLeftArrow.width + second()%2*10, mPosition.y + 5);
+      }
     }
   }
 }

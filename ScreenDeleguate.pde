@@ -44,6 +44,10 @@ class ScreenDeleguate {
     this.mCurrentScreen = new HelpScreen(this, mData, mTextures);
   }
   
+  public final void setSetupEditorScreen(Level level){
+    this.mCurrentScreen = new SetupEditorScreen(this, mData, mTextures, level); 
+  }
+  
   public final void setCreateEditorScreen(){
     this.mCurrentScreen = new CreateEditorScreen(this, mData, mTextures);
   }

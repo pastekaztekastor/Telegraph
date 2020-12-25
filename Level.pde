@@ -19,6 +19,16 @@ public class Level{
     mLevelName = name;
   }
   
+  public Level(int width, int height, String name){
+    mLevelName = name;
+    mLevelMatrix = new int[height][width];
+    for(int i = 0 ; i < height; i++){
+      for(int j = 0; j < width; j++){
+        mLevelMatrix[i][j] = 0;
+      }
+    }
+  }
+  
   public int getWidth(){
     return mLevelMatrix[0].length; 
   }
