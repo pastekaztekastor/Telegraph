@@ -7,9 +7,6 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
 
   private int mSelectedLevel;
   private int mStartingDrawLevel;
-  private boolean mOnBackButton;
-
-  private boolean mMouseHavePriority;
   
   private ImageButton mUpButton;
   private ImageButton mDownButton;
@@ -21,11 +18,10 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     mTextures           = textures;
     mSelectedLevel      = 0;
     mStartingDrawLevel  = 0;
-    mOnBackButton       = false;
-    mMouseHavePriority  = false;
     mUpButton           = new ImageButton(width/2 - 150, height/2 - 98, mTextures.mUpArrow);
     mDownButton         = new ImageButton(width/2 - 150, height/2 + 202, mTextures.mDownArrow);
     mBackButton         = new TextButton(width/2, height - 50, "retour", 36, mTextures.mLeftSelector);
+    
     mUpButton.setMode(ImageButton.UP);
     mDownButton.setMode(ImageButton.DOWN);
     actualiseButtonVisibility();
@@ -63,11 +59,9 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     if(src == mUpButton){
       mStartingDrawLevel --;
       actualiseButtonVisibility();
-      
     } else if(src == mDownButton){
       mStartingDrawLevel ++;
       actualiseButtonVisibility();
-      
     } else if(src == mBackButton){
       mUpButton.removeListener(this);
       mDownButton.removeListener(this);
@@ -141,6 +135,9 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     if(id >= 0){
       mSelectedLevel = id;
       cursor(HAND);
+      return;
+    } else {
+      mSelectedLevel = -1;
     }
     cursor(ARROW);
   }

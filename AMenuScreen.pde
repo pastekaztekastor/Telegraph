@@ -5,7 +5,7 @@ public class MenuScreen extends Screen implements ClickListener{
   private TextureDeleguate mTextures;
 
   private String[] menuContent = {"Jouer", "Scores", "Aide", "Editeur", "Crédits", "Quitter"};
-  private TextButton[] mButtons;
+  private Button[] mButtons;
 
   MenuScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures){
     mScreenDeleguate = screenDeleguate;
@@ -27,6 +27,7 @@ public class MenuScreen extends Screen implements ClickListener{
   }
 
   void drawMenu(){
+    fill(mTextures.mTextColor);
     for(Button btn : mButtons){
       btn.drawButton(); 
     }
@@ -57,5 +58,11 @@ public class MenuScreen extends Screen implements ClickListener{
       if(btn.isMouseOnIt()) return; 
     }
     cursor(ARROW);
+  }
+  
+  void sizeChanged(){
+    for(int i = 0; i < menuContent.length; i++){
+      mButtons[i].setPosition(width/2, height/2 - 100 + i * 50);
+    } 
   }
 }
