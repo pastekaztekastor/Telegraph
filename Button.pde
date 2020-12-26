@@ -10,7 +10,8 @@ abstract class Button{
   protected float     mWidth;
   protected float     mHeight;
   protected boolean   mIsHovered;
-  
+  protected boolean   mIsVisible;
+
   protected final EventListenerList listeners = new EventListenerList();
 
   protected Button(float x, float y, float width, float height){
@@ -18,9 +19,24 @@ abstract class Button{
     mWidth      = width;
     mHeight     = height;
     mIsHovered  = false;
+    mIsVisible  = true;
   }
 
-  abstract void drawButton();
+  abstract void draw();
+  
+  public void drawButton(){
+    if(mIsVisible){
+      draw(); 
+    }
+  }
+  
+  public void setHitBowWidth(int value){ 
+    mWidth = value;
+  }
+  
+  public void setVisibility(boolean value){
+    mIsVisible = value; 
+  }
   
   public void addListener(ClickListener listener){
     listeners.add(ClickListener.class, listener);
@@ -31,7 +47,7 @@ abstract class Button{
     listeners.remove(ClickListener.class, listener);
   }
   
-  
+  // il y a eu un click, vérifier si la souris est sur le bouton, et prévenir les listeners
   public void isClick(){
     if(isMouseOnIt()){
       fireButtonClicked(this);
@@ -56,7 +72,7 @@ abstract class Button{
   }
 
   public boolean isMouseOnIt(){
-    if(isMouseBetweenPos(mPosition.x - mWidth/2, mPosition.x + mWidth/2, mPosition.y - mHeight/2, mPosition.y + mHeight/2)){
+    if(mIsVisible && isMouseBetweenPos(mPosition.x - mWidth/2, mPosition.x + mWidth/2, mPosition.y - mHeight/2, mPosition.y + mHeight/2)){
       cursor(HAND);
       mIsHovered = true;
       return true;
@@ -77,15 +93,32 @@ abstract class Button{
 
 
 public class ImageButton extends Button{
+  public static final int NONE = 0;
+  public static final int UP = 1;
+  public static final int DOWN = 2;
+  public static final int LEFT = 3;
+  public static final int RIGHT = 4;
+  
   private PImage mImage;
+  private int    mMode;
 
   public ImageButton(float x, float y, PImage image){
-    super(x, y, image.width, image.height);
+    super(x, y, image.width + 20, image.height + 20);
     mImage = image;
+    mMode  = NONE;
+  }
+  
+  public void setMode(int mode){
+    mMode = mode; 
   }
 
-  public void drawButton(){
-
+  public void draw(){
+    imageMode(CENTER);
+    if(mMode == NONE) image(mImage, mPosition.x, mPosition.y);
+    else if(mMode == UP) image(mImage, mPosition.x, mPosition.y - second()%2*10);
+    else if(mMode == DOWN) image(mImage, mPosition.x, mPosition.y + second()%2*10);
+    else if(mMode == LEFT) image(mImage, mPosition.x - second()%2*10, mPosition.y);
+    else if(mMode == RIGHT) image(mImage, mPosition.x + second()%2*10, mPosition.y);
   }
 }
 
@@ -117,7 +150,7 @@ public class TextButton extends Button{
     mRightArrow = rightArrow;
   }
 
-  public void drawButton(){
+  public void draw(){
     textSize(mFontSize);
     textAlign(CENTER, CENTER);
     text(mText, mPosition.x, mPosition.y);

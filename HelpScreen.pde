@@ -1,10 +1,10 @@
 
-public class HelpScreen extends Screen {
+public class HelpScreen extends Screen implements ClickListener{
   private ScreenDeleguate     mScreenDeleguate;
   private DataDeleguate       mData;
   private TextureDeleguate    mTextures;
-
-  private boolean             mOnBackButton;
+  
+  private TextButton          mBackButton;
 
   private String[]            mAdaptedText;
   private String[]            mMainText = { "Chaque niveau comporte une grille remplie de stations télégraphiques.",
@@ -19,6 +19,8 @@ public class HelpScreen extends Screen {
     mData              = dataDeleguate;
     mTextures          = textures;
     mAdaptedText       = new String[0];
+    mBackButton        = new TextButton(width/2, height - 50, "retour", 36, mTextures.mLeftSelector);
+    mBackButton.addListener(this);
     sizeChanged();
   }
 
@@ -26,7 +28,8 @@ public class HelpScreen extends Screen {
     background(mTextures.mBackgroundColor);
     mTextures.drawTitle();
     drawBody();
-    drawBackbutton();
+    mBackButton.drawButton();
+    mouseMoved();
   }
 
   private void drawBody() {
@@ -45,17 +48,6 @@ public class HelpScreen extends Screen {
     textAlign(CENTER, CENTER);
     for(int i = 0; i < mAdaptedText.length; i++){
       text(mAdaptedText[i], width/2, 370 + i * 30);
-    }
-  }
-
-  private void drawBackbutton(){
-    String word = "retour";
-    textFont(mTextures.mFont, 36);
-    textAlign(CENTER, CENTER);
-    fill(mTextures.mTextColor);
-    text(word, width/2, height - 50);
-    if(mOnBackButton){
-      image(mTextures.mLeftSelector, width/2 - (int)textWidth(word) / 2 - 30 - second()%2*10, height - 48);
     }
   }
 
@@ -79,25 +71,26 @@ public class HelpScreen extends Screen {
     }
     return newTable;
   }
+  
+  public void onClick(Button src){
+    if(src == mBackButton) mScreenDeleguate.setMenuScreen();
+    mBackButton.removeListener(this);
+  }
 
-  private boolean isOnBackButton(){
-     return mouseX > width / 2 - 100
-      && mouseX < width / 2 + 100
-      && mouseY > height - 70
-      && mouseY < height - 30;
+  void mouseClicked(){
+    mBackButton.isClick();
+  }
+  
+  void mouseMoved(){
+    // La souris bouge, je préviens mes boutons et mes champs de texte
+    // Si la souris n'est sur aucun, je met le curseur par défaut
+    if(!mBackButton.isMouseOnIt()){
+      cursor(ARROW);
+    }
   }
 
   void sizeChanged(){
     mAdaptedText = adaptToWidth(mMainText, 18, width - 50);
-  }
-
-  void mouseClicked(){
-    if(isOnBackButton()){
-      mScreenDeleguate.setMenuScreen();
-    }
-  }
-  
-  void mouseMoved(){
-    mOnBackButton = isOnBackButton();
+    mBackButton.setPosition(width/2, height - 50);
   }
 }

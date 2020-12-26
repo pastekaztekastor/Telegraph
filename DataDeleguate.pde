@@ -1,8 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
 
 class DataDeleguate{
   public Player mCurrentPlayer;
-  public ArrayList<Level> mLevels; // faudra faire les getter setter
+  public ArrayList<Level> mLevels;
   public ArrayList<Player> mPlayers;
 
   DataDeleguate(){
@@ -26,6 +26,10 @@ class DataDeleguate{
       Player player = new Player(split(files[i].getName(), '.')[0]);
       mPlayers.add(player);
     }
+  }
+  
+  public ArrayList<Level> getLevels(){
+    return mLevels; 
   }
 
   ArrayList<Player> getPlayersOfLevel(int levelId){

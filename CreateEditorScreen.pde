@@ -18,9 +18,9 @@ public class CreateEditorScreen extends Screen implements ClickListener{
     mErrorMessage     = "";
     mBackButton       = new TextButton(width/2 - 150, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mCreateButton     = new TextButton(width/2 + 150, height - 50, "Créer", 36, mTextures.mLeftSelector);
-    mWidthTextField   = new TextField(width/2 - 100, height/2 - 60, 200, 50, 2);
-    mHeightTextField  = new TextField(width/2 - 100, height/2 + 10, 200, 50, 2);
-    mNameTextField    = new TextField(width/2 - 100, height/2 + 80, 200, 50, 10);
+    mWidthTextField   = new TextField(width/2 - 100, height/2 - 105, 200, 50, 2);
+    mHeightTextField  = new TextField(width/2 - 100, height/2 + 25, 200, 50, 2);
+    mNameTextField    = new TextField(width/2 - 170, height/2 + 155, 340, 50, 8);
     
     // J'enregistre l'objet courant comme écouteur
     mBackButton.addListener(this);
@@ -39,13 +39,21 @@ public class CreateEditorScreen extends Screen implements ClickListener{
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
     mTextures.drawTitle();
+    drawBody();
+    drawErrorMessage();
+  }
+  
+  private void drawBody(){
     textFont(mTextures.mFont, 36);
+    textAlign(CENTER, CENTER);
+    text("Largeur du niveau", width/2, height/2 - 130);
     mWidthTextField.drawTextField();
+    text("heuteur du niveau", width/2, height/2);
     mHeightTextField.drawTextField();
+    text("Nom du niveau", width/2, height/2 + 130);
     mNameTextField.drawTextField();
     mBackButton.drawButton();
     mCreateButton.drawButton();
-    drawErrorMessage();
   }
   
   private void drawErrorMessage(){
@@ -116,9 +124,9 @@ public class CreateEditorScreen extends Screen implements ClickListener{
   
   public void sizeChanged(){
     // La taille de la fenetre change, je recalcule les positions des boutons et champs de texte
-    mWidthTextField.setPosition(width/2 - 100, height/2 - 60);
-    mHeightTextField.setPosition(width/2 - 100, height/2);
-    mNameTextField.setPosition(width/2 - 100, height/2 + 80);
+    mWidthTextField.setPosition(width/2 - 100, height/2 - 105);
+    mHeightTextField.setPosition(width/2 - 100, height/2 + 25);
+    mNameTextField.setPosition(width/2 - 170, height/2 + 155);
     mBackButton.setPosition(width/2 - 150, height - 50);
     mCreateButton.setPosition(width/2 + 150, height - 50);
   }
