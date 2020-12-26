@@ -149,6 +149,12 @@ public class TextButton extends Button{
     mLeftArrow  = leftArrow;
     mRightArrow = rightArrow;
   }
+  
+  public void setText(String text){
+    textSize(mFontSize);
+    mWidth      = textWidth(text);
+    mText = text; 
+  }
 
   public void draw(){
     textSize(mFontSize);

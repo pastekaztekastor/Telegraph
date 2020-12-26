@@ -97,7 +97,7 @@ public class TextField{
         mState = false;
       } else if(character == BACKSPACE && mContent.length() > 0){
         mContent = mContent.substring(0, mContent.length() - 1);
-      } else if(Character.isLetterOrDigit(character) && mContent.length() < mDigitLimit){
+      } else if(!(character == CODED) && mContent.length() < mDigitLimit){
         if(mFilter == NUMBERS_AND_CHARACTERS){
           mContent += character;
         } else if(mFilter == ONLY_NUMBERS && Character.isDigit(character)){

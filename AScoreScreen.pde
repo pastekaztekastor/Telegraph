@@ -27,8 +27,8 @@ public class ScoreScreen extends Screen implements ClickListener{
     mBackButton = new TextButton(width/2, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mUpButton = new ImageButton(width/2 , height/2 - 98, mTextures.mUpArrow);
     mDownButton = new ImageButton(width/2 , height/2 + 202, mTextures.mDownArrow);
-    mLeftButton = new ImageButton(width/2 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mLeftArrow);
-    mRightButton = new ImageButton(width/2 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mRightArrow);
+    mLeftButton = new ImageButton(width/2 - 30 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mLeftArrow);
+    mRightButton = new ImageButton(width/2 + 30 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mRightArrow);
     
     mUpButton.addListener(this);
     mDownButton.addListener(this);
@@ -65,9 +65,9 @@ public class ScoreScreen extends Screen implements ClickListener{
       mRightButton.removeListener(this);
       mScreenDeleguate.setMenuScreen();
     }
-    
     updateButtons();
     updateButtonsPosition();
+    refreshList();
   }
   
   private void updateButtons(){
@@ -81,6 +81,16 @@ public class ScoreScreen extends Screen implements ClickListener{
     } else {
       mDownButton.setVisibility(false);
     } 
+    if(mCurrentDisplayedLevelID > 0 ){
+      mLeftButton.setVisibility(true);
+    } else {
+      mLeftButton.setVisibility(false);
+    }
+    if(mCurrentDisplayedLevelID < mData.mLevels.size() - 1 ){
+      mRightButton.setVisibility(true);
+    } else {
+      mRightButton.setVisibility(false);
+    }
   }
   
   // Affiche l'écran complet
@@ -107,12 +117,12 @@ public class ScoreScreen extends Screen implements ClickListener{
     text("Joueur", width/2 - gap, height/2 - 150);
     text("Score", width/2 + gap, height/2 - 150);
     for(int i = 0; i < 5 && mCurrentFirstDisplayedPlayer + i < mPlayersToDisplay.size(); i++){
-      // Affichage du temps
-      textAlign(CENTER, CENTER);
-      text(mPlayersToDisplay.get(i).getTimeAtLevel(mCurrentDisplayedLevelName).toStringFormat(2), width/2 + gap, height/2 - 50 + i * 50);
       // Affichage du nom du joueur
       textAlign(LEFT, CENTER);
       text((mCurrentFirstDisplayedPlayer + i + 1)+ " " + mPlayersToDisplay.get(i).getName(), width/2 - gap - 140, height/2 - 50 + i * 50);
+      // Affichage du temps
+      textAlign(CENTER, CENTER);
+      text(mPlayersToDisplay.get(mCurrentFirstDisplayedPlayer + i).getTimeAtLevel(mCurrentDisplayedLevelName).toStringFormat(2), width/2 + gap, height/2 - 50 + i * 50);
     }
     // Affichage du nom du niveau courrant
     textAlign(CENTER, CENTER);
@@ -124,7 +134,6 @@ public class ScoreScreen extends Screen implements ClickListener{
     mCurrentDisplayedLevelName = mData.mLevels.get(mCurrentDisplayedLevelID).mLevelName;
     mPlayersToDisplay = mData.getPlayersOfLevel(mCurrentDisplayedLevelID);
     sortListByBestPlayer();
-    updateButtonsPosition();
   }
   
   // Tri la liste de mes joueurs en fonction de leur temps sur le niveau affiché
@@ -162,8 +171,8 @@ public class ScoreScreen extends Screen implements ClickListener{
     mBackButton.setPosition(width/2, height - 50);
     mUpButton.setPosition(width/2 , height/2 - 98);
     mDownButton.setPosition(width/2 , height/2 + 202);
-    mLeftButton.setPosition(width/2 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
-    mRightButton.setPosition(width/2 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
+    mLeftButton.setPosition(width/2 - 30 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
+    mRightButton.setPosition(width/2 + 30 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
   }
   
   public void sizeChanged(){
