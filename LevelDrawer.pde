@@ -10,7 +10,7 @@ public class LevelDrawer extends FrameDrawer{
     return mTimer.getTime();
   }
 
-  protected void updateLevelData() {
+  void updateLevelData() {
     updatePathTable();
     checkWin();
   }
@@ -41,7 +41,7 @@ public class EditorDrawer extends FrameDrawer{
     mCurrentlevel.generateLevelFile(mPathTable);
   }
 
-  protected void updateLevelData() {
+  void updateLevelData() {
     updatePathTable();
   }
 }
@@ -77,7 +77,7 @@ abstract class FrameDrawer {
     drawPath();
   }
 
-  private void setSize() {
+  public void setSize() {
     float heightAvailable = height - 300;
     float widthAvailable = width;
 
