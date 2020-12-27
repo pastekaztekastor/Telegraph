@@ -3,7 +3,7 @@ public class HelpScreen extends Screen implements ClickListener{
   private ScreenDeleguate     mScreenDeleguate;
   private DataDeleguate       mData;
   private TextureDeleguate    mTextures;
-  
+
   private TextButton          mBackButton;
 
   private String[]            mAdaptedText;
@@ -71,17 +71,17 @@ public class HelpScreen extends Screen implements ClickListener{
     }
     return newTable;
   }
-  
+
   public void onClick(Button src){
     if(src == mBackButton) mScreenDeleguate.setMenuScreen();
     mBackButton.removeListener(this);
   }
 
-  void mouseClicked(){
+  public void mouseClicked(){
     mBackButton.isClick();
   }
-  
-  void mouseMoved(){
+
+  public void mouseMoved(){
     // La souris bouge, je préviens mes boutons et mes champs de texte
     // Si la souris n'est sur aucun, je met le curseur par défaut
     if(!mBackButton.isMouseOnIt()){
@@ -89,7 +89,7 @@ public class HelpScreen extends Screen implements ClickListener{
     }
   }
 
-  void sizeChanged(){
+  public void sizeChanged(){
     mAdaptedText = adaptToWidth(mMainText, 18, width - 50);
     mBackButton.setPosition(width/2, height - 50);
   }

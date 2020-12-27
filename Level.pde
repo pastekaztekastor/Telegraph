@@ -19,7 +19,7 @@ public class Level{
     }
     mLevelName = name;
   }
-  
+
   public Level(int width, int height, String name){
     mLevelName = name;
     mLevelMatrix = new int[height][width];
@@ -29,7 +29,7 @@ public class Level{
       }
     }
   }
-  
+
   public void generateLevelFile(int[][] mPathMatrix){
     mLevelMatrix = mPathMatrix;
     String[] lines = new String[mPathMatrix.length];
@@ -44,20 +44,20 @@ public class Level{
     }
     saveStrings(LEVEL_PATH + mLevelName + ".txt", lines);
   }
-  
+
   public int getWidth(){
-    return mLevelMatrix[0].length; 
+    return mLevelMatrix[0].length;
   }
-  
+
   public int getHeight(){
-    return mLevelMatrix.length; 
+    return mLevelMatrix.length;
   }
-  
+
   public String getname(){
-    return mLevelName; 
+    return mLevelName;
   }
   
   public int getValueAt(int x, int y){
-    return mLevelMatrix[y][x]; 
+    return mLevelMatrix[y][x];
   }
 }

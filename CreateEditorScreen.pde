@@ -48,7 +48,7 @@ public class CreateEditorScreen extends Screen implements ClickListener{
     textAlign(CENTER, CENTER);
     text("Largeur du niveau", width/2, height/2 - 130);
     mWidthTextField.drawTextField();
-    text("heuteur du niveau", width/2, height/2);
+    text("hauteur du niveau", width/2, height/2);
     mHeightTextField.drawTextField();
     text("Nom du niveau", width/2, height/2 + 130);
     mNameTextField.drawTextField();

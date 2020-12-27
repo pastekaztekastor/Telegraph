@@ -3,14 +3,14 @@ public class OnGameScreen extends Screen implements ClickListener{
   private final ScreenDeleguate mScreenDeleguate;
   private final DataDeleguate mData;
   private final TextureDeleguate mTextures;
-  
+
   private final LevelDrawer mLeveldrawer;
   private final Level mCurrentlevel;
-  
+
   private final TextButton mLeaveButton;
   private final TextButton mReloadButton;
 
-  OnGameScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
+  public OnGameScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     mScreenDeleguate = screenDeleguate;
     mData = dataDeleguate;
     mTextures = textures;
@@ -22,7 +22,7 @@ public class OnGameScreen extends Screen implements ClickListener{
     mReloadButton.addListener(this);
   }
 
-  void drawScreen(){
+  public void drawScreen(){
     background(mTextures.mBackgroundColor);
     drawHeader();
     mLeveldrawer.draw();
@@ -52,25 +52,25 @@ public class OnGameScreen extends Screen implements ClickListener{
     text(mData.getCurrentplayer().getTimeAtLevel(mCurrentlevel.getname()).toStringFormat(2), width/2 + gap, 150);
   }
 
-  void mouseReleased(){
+  public void mouseReleased(){
     mLeveldrawer.mouseReleased();
   }
 
-  void mouseDragged(){
+  public void mouseDragged(){
     mLeveldrawer.mouseDragged();
   }
-  
-  void mouseClicked(){
+
+  public void mouseClicked(){
     mLeaveButton.isClick();
     mReloadButton.isClick();
   }
-  
-  void mouseMoved(){
+
+  public void mouseMoved(){
     // La souris bouge, je préviens mes boutons et mes champs de texte
     // Si la souris n'est sur aucun, je met le curseur par défaut
-    if(mLeaveButton.isMouseOnIt()) return; 
-    else if(mReloadButton.isMouseOnIt()) return; 
-    
+    if(mLeaveButton.isMouseOnIt()) return;
+    else if(mReloadButton.isMouseOnIt()) return;
+
     if(mLeveldrawer.isMouseOnTheGrid() && !mousePressed){
       cursor(HAND);
     } else if(mLeveldrawer.isMouseOnTheGrid() && mousePressed){
@@ -80,11 +80,11 @@ public class OnGameScreen extends Screen implements ClickListener{
     }
   }
 
-  void mousePressed(){
+  public void mousePressed(){
     mLeveldrawer.mousePressed();
   }
 
-  void sizeChanged(){
+  public void sizeChanged(){
     mLeveldrawer.setSize();
     mLeaveButton.setPosition(width/2 - 150, height - 50);
     mLeaveButton.setPosition(width/2 + 150, height - 50);

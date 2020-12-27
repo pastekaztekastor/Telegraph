@@ -20,7 +20,7 @@ public class Player {
         return;
       }
     }
-    // Le joueur n'existe pas dans la base, on lui créé un fichier 
+    // Le joueur n'existe pas dans la base, on lui créé un fichier
     String[] lines = new String[0];
     saveStrings(PLAYER_PATH + playerName + ".txt", lines);
   }

@@ -4,38 +4,38 @@ public class ScoreScreen extends Screen implements ClickListener{
   private ScreenDeleguate     mScreenDeleguate;
   private DataDeleguate       mData;
   private TextureDeleguate    mTextures;
-  
+
   private int                 mCurrentDisplayedLevelID;
   private ArrayList<Player>   mPlayersToDisplay;
   private String              mCurrentDisplayedLevelName;
   private int                 mCurrentFirstDisplayedPlayer;
-  
+
   private ImageButton mUpButton;
   private ImageButton mDownButton;
   private ImageButton mLeftButton;
   private ImageButton mRightButton;
   private TextButton  mBackButton;
-  
-  
+
+
   public ScoreScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures) {
     mScreenDeleguate             = screenDeleguate;
     mData                        = dataDeleguate;
     mTextures                    = textures;
     mCurrentDisplayedLevelID     = 0;
     mCurrentFirstDisplayedPlayer = 0;
-    
+
     mBackButton = new TextButton(width/2, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mUpButton = new ImageButton(width/2 , height/2 - 98, mTextures.mUpArrow);
     mDownButton = new ImageButton(width/2 , height/2 + 202, mTextures.mDownArrow);
     mLeftButton = new ImageButton(width/2 - 30 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mLeftArrow);
     mRightButton = new ImageButton(width/2 + 30 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250, mTextures.mRightArrow);
-    
+
     mUpButton.addListener(this);
     mDownButton.addListener(this);
     mLeftButton.addListener(this);
     mRightButton.addListener(this);
     mBackButton.addListener(this);
-    
+
     mUpButton.setMode(ImageButton.UP);
     mDownButton.setMode(ImageButton.DOWN);
     mLeftButton.setMode(ImageButton.LEFT);
@@ -43,7 +43,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     refreshList();
     updateButtons();
   }
-  
+
   public void onClick(Button src){
     if(src == mUpButton){
       mCurrentFirstDisplayedPlayer--;
@@ -69,7 +69,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     updateButtonsPosition();
     refreshList();
   }
-  
+
   private void updateButtons(){
     if(mCurrentFirstDisplayedPlayer > 0){
       mUpButton.setVisibility(true);
@@ -80,7 +80,7 @@ public class ScoreScreen extends Screen implements ClickListener{
       mDownButton.setVisibility(true);
     } else {
       mDownButton.setVisibility(false);
-    } 
+    }
     if(mCurrentDisplayedLevelID > 0 ){
       mLeftButton.setVisibility(true);
     } else {
@@ -92,7 +92,7 @@ public class ScoreScreen extends Screen implements ClickListener{
       mRightButton.setVisibility(false);
     }
   }
-  
+
   // Affiche l'écran complet
   public void drawScreen(){
     mouseMoved();
@@ -105,7 +105,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     mRightButton.drawButton();
     mBackButton.drawButton();
   }
-  
+
   // Affiche le corps de la page (les scores et les flèches)
   private void drawScores(){
     int gap = 150;
@@ -135,7 +135,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     mPlayersToDisplay = mData.getPlayersOfLevel(mCurrentDisplayedLevelID);
     sortListByBestPlayer();
   }
-  
+
   // Tri la liste de mes joueurs en fonction de leur temps sur le niveau affiché
   private void sortListByBestPlayer(){
     for(int i = 0; i < mPlayersToDisplay.size(); i++){
@@ -154,14 +154,14 @@ public class ScoreScreen extends Screen implements ClickListener{
     mRightButton.isClick();
     mBackButton.isClick();
   }
-  
+
   public void mouseMoved(){
     // La souris bouge, je préviens mes boutons et mes champs de texte
     // Si la souris n'est sur aucun, je met le curseur par défaut
-    if(!mUpButton.isMouseOnIt() 
+    if(!mUpButton.isMouseOnIt()
         && !mDownButton.isMouseOnIt()
         && !mLeftButton.isMouseOnIt()
-        && !mRightButton.isMouseOnIt() 
+        && !mRightButton.isMouseOnIt()
         && !mBackButton.isMouseOnIt()){
       cursor(ARROW);
     }
@@ -174,7 +174,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     mLeftButton.setPosition(width/2 - 30 - textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
     mRightButton.setPosition(width/2 + 30 + textWidth("Niveau " + mCurrentDisplayedLevelName)/2, height/2 + 250);
   }
-  
+
   public void sizeChanged(){
     updateButtonsPosition();
   }

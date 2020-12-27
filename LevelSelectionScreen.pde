@@ -5,9 +5,8 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
   private DataDeleguate mData;
   private TextureDeleguate mTextures;
 
-  private int mSelectedLevel;
   private int mStartingDrawLevel;
-  
+
   private ImageButton mUpButton;
   private ImageButton mDownButton;
   private TextButton  mBackButton;
@@ -17,23 +16,22 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     mScreenDeleguate    = screenDeleguate;
     mData               = data;
     mTextures           = textures;
-    mSelectedLevel      = 0;
     mStartingDrawLevel  = 0;
     mUpButton           = new ImageButton(width/2 - 150, height/2 - 98, mTextures.mUpArrow);
     mDownButton         = new ImageButton(width/2 - 150, height/2 + 202, mTextures.mDownArrow);
     mBackButton         = new TextButton(width/2, height - 50, "retour", 36, mTextures.mLeftSelector);
-    mLevelButtons = new TextButton[5];
+    mLevelButtons       = new TextButton[5];
     for(int i = 0; i < mLevelButtons.length; i++){
-      mLevelButtons[i] = new TextButton(width/2 - 150, height/2 - 50 + i * 50, "bb", 36, mTextures.mLeftSelector);
+      mLevelButtons[i]  = new TextButton(width/2 - 150, height/2 - 50 + i * 50, "bb", 36, mTextures.mLeftSelector);
       mLevelButtons[i].addListener(this);
     }
-    
-    mUpButton.setMode(ImageButton.UP);
+
+    mUpButton  .setMode(ImageButton.UP);
     mDownButton.setMode(ImageButton.DOWN);
-    actualiseButtons();
-    mUpButton.addListener(this);
+    mUpButton  .addListener(this);
     mDownButton.addListener(this);
     mBackButton.addListener(this);
+    actualiseButtons();
     mouseMoved();
   }
 
@@ -47,10 +45,10 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     tint(255, 255);
     mBackButton.drawButton();
     for(Button btn : mLevelButtons){
-      btn.drawButton(); 
+      btn.drawButton();
     }
   }
-  
+
   private void actualiseButtons(){
     if(mStartingDrawLevel == 0){
        mUpButton.setVisibility(false);
@@ -66,7 +64,7 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
       mLevelButtons[i].setText(mData.mLevels.get(mStartingDrawLevel + i).mLevelName);
     }
   }
-  
+
   public void onClick(Button src){
     if(src == mUpButton){
       mStartingDrawLevel --;
@@ -86,17 +84,17 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
       }
     }
   }
-  
+
   private void removeButtonsListeners(){
     mBackButton.removeListener(this);
-    mUpButton.removeListener(this);
+    mUpButton  .removeListener(this);
     mDownButton.removeListener(this);
     for(Button btn : mLevelButtons){
       btn.removeListener(this);
     }
   }
 
-  void drawLevels(){
+  private void drawLevels(){
     int gap = 150;
     textFont(mTextures.mFont, 36);
     textAlign(CENTER, CENTER);
@@ -115,29 +113,33 @@ public class LevelSelectionScreen extends Screen implements ClickListener{
     }
   }
 
-  void mouseClicked(){
+  public void mouseClicked(){
     mBackButton.isClick();
-    mUpButton.isClick();
+    mUpButton  .isClick();
     mDownButton.isClick();
     for(Button btn : mLevelButtons){
-      btn.isClick(); 
+      btn.isClick();
     }
     mouseMoved();
   }
 
-  void mouseMoved(){
-    // La souris bouge, je préviens mes boutons et mes champs de texte
-    // Si la souris n'est sur aucun, je met le curseur par défaut
-    if(mBackButton.isMouseOnIt()) return; 
-    else if(mUpButton.isMouseOnIt()) return; 
-    else if(mDownButton.isMouseOnIt()) return; 
+  public void mouseMoved(){
+    // La souris bouge, je préviens mes boutons et si elle n'est sur aucun, je met le curseur par défaut
+    if(mBackButton.isMouseOnIt()) return;
+    else if(mUpButton.isMouseOnIt()) return;
+    else if(mDownButton.isMouseOnIt()) return;
     for(Button btn : mLevelButtons){
-      if(btn.isMouseOnIt()) return; 
+      if(btn.isMouseOnIt()) return;
     }
     cursor(ARROW);
   }
-  
-  void sizeChanged(){
-    
+
+  public void sizeChanged(){
+    mUpButton.setPosition(width/2 - 150, height/2 - 98);
+    mDownButton.setPosition(width/2 - 150, height/2 + 202);
+    mBackButton.setPosition(width/2, height - 50);
+    for(int i = 0; i < mLevelButtons.length; i++){
+      mLevelButtons[i].setPosition(width/2 - 150, height/2 - 50 + i * 50);
+    }
   }
 }

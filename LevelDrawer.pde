@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class LevelDrawer extends FrameDrawer{
-  
+
   LevelDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     super(dataDeleguate, textures, level);
   }
@@ -9,8 +9,8 @@ public class LevelDrawer extends FrameDrawer{
   public Time getScore(){
     return mTimer.getTime();
   }
-  
-  void updateLevelData() {
+
+  protected void updateLevelData() {
     updatePathTable();
     checkWin();
   }
@@ -32,16 +32,16 @@ public class LevelDrawer extends FrameDrawer{
 }
 
 public class EditorDrawer extends FrameDrawer{
-  
+
   EditorDrawer(DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     super(dataDeleguate, textures, level);
   }
-  
+
   public void saveLevel(){
     mCurrentlevel.generateLevelFile(mPathTable);
   }
-  
-  void updateLevelData() {
+
+  protected void updateLevelData() {
     updatePathTable();
   }
 }
@@ -77,7 +77,7 @@ abstract class FrameDrawer {
     drawPath();
   }
 
-  void setSize() {
+  private void setSize() {
     float heightAvailable = height - 300;
     float widthAvailable = width;
 
@@ -143,7 +143,7 @@ abstract class FrameDrawer {
       }
     }
   }
-  
+
   abstract void updateLevelData();
 
   private boolean isPositionInTheLevel(Position pos) {
@@ -259,17 +259,17 @@ abstract class FrameDrawer {
     }
     return new Position((int)x, (int)y);
   }
-  
+
   public boolean isMouseOnTheGrid(){
      return getPositionOfTileHovered() != null;
   }
-  
+
   public void resetGame(){
     mTimer.stop();
     mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
-    updateLevelData(); 
+    updateLevelData();
   }
-  
+
   public void mouseReleased(){
     if(mCurrentPlayerPath.length == 1){
       mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
@@ -285,7 +285,7 @@ abstract class FrameDrawer {
       addNewPointToPath(pos, false, true);
     }
   }
-  
+
   public void mousePressed(){
     Position pos = getPositionOfTileHovered();
     if(pos != null){

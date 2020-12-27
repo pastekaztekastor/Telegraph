@@ -3,12 +3,12 @@ public class SetupEditorScreen extends Screen{
   private final ScreenDeleguate   mScreenDeleguate;
   private final DataDeleguate     mData;
   private final TextureDeleguate  mTextures;
-  
+
   private final Level mCurrentlevel;
   private final EditorDrawer mEditordrawer;
   private TextButton  mBackButton;
   private TextButton  mCreateButton;
- 
+
   public SetupEditorScreen(ScreenDeleguate screenDeleguate, DataDeleguate dataDeleguate, TextureDeleguate textures, Level level){
     mScreenDeleguate  = screenDeleguate;
     mData             = dataDeleguate;
@@ -18,7 +18,7 @@ public class SetupEditorScreen extends Screen{
     mBackButton       = new TextButton(width/2 - 150, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mCreateButton     = new TextButton(width/2 + 150, height - 50, "Créer", 36, mTextures.mLeftSelector);
   }
-  
+
   public void drawScreen(){
     background(mTextures.mBackgroundColor);
     mEditordrawer.draw();
@@ -27,7 +27,7 @@ public class SetupEditorScreen extends Screen{
     mCreateButton.drawButton();
     drawHeader();
   }
-  
+
   private void drawHeader(){
     textAlign(CENTER, CENTER);
     textFont(mTextures.mFont, 36);
@@ -35,7 +35,7 @@ public class SetupEditorScreen extends Screen{
     textFont(mTextures.mFont, 18);
     text("Dessinez le niveau", width/2, 150.);
   }
-  
+
   public void mouseClicked(){
     if(mBackButton.isMouseOnIt()){
       // Le bouton Retour est cliqué, on affiche le menu
@@ -48,26 +48,26 @@ public class SetupEditorScreen extends Screen{
     }
   }
 
-  void mouseReleased(){
+  public void mouseReleased(){
     mEditordrawer.mouseReleased();
   }
 
-  void mouseDragged(){
+  public void mouseDragged(){
     mEditordrawer.mouseDragged();
   }
-  
-  void mousePressed(){
+
+  public void mousePressed(){
     mEditordrawer.mousePressed();
   }
-  
+
   public void mouseMoved(){
     // La souris bouge, je préviens mes boutons et mes champs de texte
-    if(!mBackButton.isMouseOnIt() 
+    if(!mBackButton.isMouseOnIt()
         && !mCreateButton.isMouseOnIt()){
       cursor(ARROW);
     }
   }
-  
+
   public void sizeChanged(){
     // La taille de la fenetre change, je recalcule les positions des boutons et champs de texte
     mBackButton.setPosition(width/2 - 150, height - 50);

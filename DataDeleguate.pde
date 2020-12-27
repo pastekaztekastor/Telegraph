@@ -5,12 +5,12 @@ class DataDeleguate{
   public ArrayList<Level> mLevels;
   public ArrayList<Player> mPlayers;
 
-  DataDeleguate(){
+  public DataDeleguate(){
     loadLevels();
     loadPlayers();
   }
 
-  void loadLevels(){
+  public void loadLevels(){
     mLevels = new ArrayList<Level>();
     File[] files = listFiles("/levels");
     for(int i = 0; i < files.length; i++){
@@ -19,7 +19,7 @@ class DataDeleguate{
     }
   }
 
-  void loadPlayers(){
+  public void loadPlayers(){
     mPlayers = new ArrayList<Player>();
     File[] files = listFiles("/players");
     for(int i = 0; i < files.length; i++){
@@ -27,9 +27,9 @@ class DataDeleguate{
       mPlayers.add(player);
     }
   }
-  
+
   public ArrayList<Level> getLevels(){
-    return mLevels; 
+    return mLevels;
   }
 
   ArrayList<Player> getPlayersOfLevel(int levelId){
@@ -44,7 +44,7 @@ class DataDeleguate{
     return list;
   }
 
-  void setCurrentPlayerTo(String name){
+  public void setCurrentPlayerTo(String name){
     for(Player player : mPlayers){
       if(player.mPlayerName.equals(name)){
         // Le joueur existe déja, on le récupère
@@ -56,8 +56,8 @@ class DataDeleguate{
     mCurrentPlayer = new Player(name);
     mPlayers.add(mCurrentPlayer);
   }
-  
-  Player getCurrentplayer(){
+
+  public Player getCurrentplayer(){
     if(this.mCurrentPlayer == null){
       throw new Error("Aucun joueur courant");
     }

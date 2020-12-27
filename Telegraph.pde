@@ -10,12 +10,12 @@ ScreenDeleguate screen;
 int lastheight;
 int lastWidth;
 
-void setup() {
+public void setup() {
   SmoothCanvas sc = (SmoothCanvas) getSurface().getNative();
   JFrame frame = (JFrame) sc.getFrame();
   Dimension dim = new Dimension(640, 900);
   frame.setMinimumSize(dim);
-  
+
   background(0);
   size(640,860);
   noSmooth();
@@ -29,7 +29,7 @@ void setup() {
   screen.setLaunchScreen();
 }
 
-void draw(){
+public void draw(){
   if(width != lastWidth || height != lastheight){
     lastWidth = width;
     lastheight = height;
@@ -38,30 +38,30 @@ void draw(){
   screen.drawScreen();
 }
 
-void sizeChanged(){
+public void sizeChanged(){
   screen.sizeChanged();
 }
 
-void keyPressed(){
+public void keyPressed(){
   screen.aKeyWasPressed();
 }
 
-void mouseClicked(){
+public void mouseClicked(){
   screen.mouseIsClicked();
 }
 
-void mouseMoved(){
+public void mouseMoved(){
   screen.mouseIsMoved();
 }
 
-void mouseDragged() {
+public void mouseDragged() {
   screen.mouseIsDragged();
 }
 
-void mousePressed() {
+public void mousePressed() {
   screen.mouseIsPressed();
 }
 
-void mouseReleased(){
+public void mouseReleased(){
   screen.mouseIsReleased();
 }

@@ -1,23 +1,25 @@
 public class TextureDeleguate{
-  private final PFont mFont;
+  public final PFont mFont;
 
-  private final PImage mRightSelector;
-  private final PImage mLeftSelector;
+  public final PImage mRightSelector;
+  public final PImage mLeftSelector;
 
-  private final PImage mUpArrow;
-  private final PImage mDownArrow;
-  private final PImage mLeftArrow;
-  private final PImage mRightArrow;
+  public final PImage mUpArrow;
+  public final PImage mDownArrow;
+  public final PImage mLeftArrow;
+  public final PImage mRightArrow;
 
-  private final color mBackgroundColor;
-  private final color mTextColor;
-  private final color mErrorColor;
-  private final color mTextShadowColor;
-  private final color mEmptyCellColor;
-  private final color mWorkingCellColor;
-  private final color mSelectorCellColor;
-  private final color mLineColor;
-  private final color mLineDotColor;
+  public final PImage mAward;
+
+  public final color mBackgroundColor;
+  public final color mTextColor;
+  public final color mErrorColor;
+  public final color mTextShadowColor;
+  public final color mEmptyCellColor;
+  public final color mWorkingCellColor;
+  public final color mSelectorCellColor;
+  public final color mLineColor;
+  public final color mLineDotColor;
 
   public TextureDeleguate(){
     mFont = createFont("SuperLegendBoy.ttf", 32);
@@ -30,6 +32,8 @@ public class TextureDeleguate{
     mLeftArrow = loadImage("data/left_arrow.png");
     mRightArrow = loadImage("data/right_arrow.png");
 
+    mAward = loadImage("data/award.png");
+
     mBackgroundColor = color(5, 5, 5);
     mTextColor = color(255);                                  // 255,211,56
     mErrorColor = color(237, 28, 36);
@@ -41,7 +45,7 @@ public class TextureDeleguate{
     mLineDotColor = color(43, 65, 255);
     // Color palette : #FF050D #FFD338 #FF1F26 #05FF47 #122BFF
   }
-  
+
   public void drawTitle(){
     textFont(mFont, 64);
     textAlign(CENTER, CENTER);
@@ -50,7 +54,7 @@ public class TextureDeleguate{
     fill(mTextColor);
     text("Telegraph", width/2, 80);
   }
-  
+
   public void drawTelegraphTile(float xPos, float yPos, float tileSize) {
     float tilePad = tileSize / 8.0;
     rectMode(CORNER);
@@ -83,5 +87,3 @@ public class TextureDeleguate{
     rect(xPos + tileSize-cornerSize, yPos + tileSize-cornerSize, cornerSize, cornerSize);
   }
 }
-
-  

@@ -12,9 +12,10 @@ abstract class Button{
   protected boolean   mIsHovered;
   protected boolean   mIsVisible;
 
-  protected final EventListenerList listeners = new EventListenerList();
+  protected final     EventListenerList mListeners;
 
   protected Button(float x, float y, float width, float height){
+    mListeners   = new EventListenerList();
     mPosition   = new PVector(x, y);
     mWidth      = width;
     mHeight     = height;
@@ -22,43 +23,39 @@ abstract class Button{
     mIsVisible  = true;
   }
 
-  abstract void draw();
-  
+  protected abstract void draw();
+
   public void drawButton(){
     if(mIsVisible){
-      draw(); 
+      draw();
     }
   }
-  
-  public void setHitBowWidth(int value){ 
-    mWidth = value;
-  }
-  
+
   public void setVisibility(boolean value){
-    mIsVisible = value; 
+    mIsVisible = value;
   }
-  
+
   public void addListener(ClickListener listener){
-    listeners.add(ClickListener.class, listener);
+    mListeners.add(ClickListener.class, listener);
   }
-  
+
   // Supprime le listener mis en paramètre
   public void removeListener(ClickListener listener){
-    listeners.remove(ClickListener.class, listener);
+    mListeners.remove(ClickListener.class, listener);
   }
-  
+
   // il y a eu un click, vérifier si la souris est sur le bouton, et prévenir les listeners
   public void isClick(){
     if(isMouseOnIt()){
       fireButtonClicked(this);
     }
   }
-  
+
   // Renvoie tout les listeners de type ClickListener
   protected ClickListener[] getClickListeners() {
-    return listeners.getListeners(ClickListener.class);
+    return mListeners.getListeners(ClickListener.class);
   }
-  
+
   // J'alerte tout mes listeners que le bouton a été cliqué
   protected void fireButtonClicked(Button src){
     for(ClickListener listener : getClickListeners()){
@@ -93,12 +90,12 @@ abstract class Button{
 
 
 public class ImageButton extends Button{
-  public static final int NONE = 0;
-  public static final int UP = 1;
-  public static final int DOWN = 2;
-  public static final int LEFT = 3;
-  public static final int RIGHT = 4;
-  
+  public static final int NONE   = 0;
+  public static final int UP     = 1;
+  public static final int DOWN   = 2;
+  public static final int LEFT   = 3;
+  public static final int RIGHT  = 4;
+
   private PImage mImage;
   private int    mMode;
 
@@ -107,12 +104,12 @@ public class ImageButton extends Button{
     mImage = image;
     mMode  = NONE;
   }
-  
+
   public void setMode(int mode){
-    mMode = mode; 
+    mMode = mode;
   }
 
-  public void draw(){
+  protected void draw(){
     imageMode(CENTER);
     if(mMode == NONE) image(mImage, mPosition.x, mPosition.y);
     else if(mMode == UP) image(mImage, mPosition.x, mPosition.y - second()%2*10);
@@ -126,8 +123,8 @@ public class ImageButton extends Button{
 public class TextButton extends Button{
   private String mText;
   private int    mFontSize;
-  private PImage mLeftArrow;
-  private PImage mRightArrow;
+  private PImage mLeftSelector;
+  private PImage mRightSelector;
 
   // Le bouton est nu, sans décoration lors du survol
   public TextButton(float x, float y, String text, int fontSize){
@@ -135,39 +132,39 @@ public class TextButton extends Button{
   }
 
   // Si le bouton est survolé, une flèche apparaitra à gauche
-  public TextButton(float x, float y, String text, int fontSize, PImage leftArrow){
-    this(x, y, text, fontSize, leftArrow, null);
+  public TextButton(float x, float y, String text, int fontSize, PImage leftSelector){
+    this(x, y, text, fontSize, leftSelector, null);
   }
 
   // Si le bouton est survolé, une flèche apparaitra à gauche et a droite
-  public TextButton(float x, float y, String text, int fontSize, PImage leftArrow, PImage rightArrow){
+  public TextButton(float x, float y, String text, int fontSize, PImage leftSelector, PImage rightSelector){
     super(x, y, 0, fontSize);
     textSize(fontSize);
     mWidth      = textWidth(text);
     mText       = text;
     mFontSize   = fontSize;
-    mLeftArrow  = leftArrow;
-    mRightArrow = rightArrow;
+    mLeftSelector  = leftSelector;
+    mRightSelector = rightSelector;
   }
-  
+
   public void setText(String text){
     textSize(mFontSize);
     mWidth      = textWidth(text);
-    mText = text; 
+    mText = text;
   }
 
-  public void draw(){
+  protected void draw(){
     textSize(mFontSize);
     textAlign(CENTER, CENTER);
     text(mText, mPosition.x, mPosition.y);
     if(mIsHovered){
-      if(mLeftArrow != null){
+      if(mLeftSelector != null){
         imageMode(CENTER);
-        image(mLeftArrow, mPosition.x - mWidth/2 - mLeftArrow.width - second()%2*10, mPosition.y + 5);
+        image(mLeftSelector, mPosition.x - mWidth/2 - mLeftSelector.width - second()%2*10, mPosition.y + 5);
       }
-      if(mRightArrow != null){
+      if(mRightSelector != null){
         imageMode(CENTER);
-        image(mRightArrow, mPosition.x + mWidth/2 + mLeftArrow.width + second()%2*10, mPosition.y + 5);
+        image(mRightSelector, mPosition.x + mWidth/2 + mRightSelector.width + second()%2*10, mPosition.y + 5);
       }
     }
   }
