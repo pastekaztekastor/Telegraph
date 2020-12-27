@@ -5,10 +5,8 @@ public class Level{
   String mLevelName;
   int[][] mLevelMatrix;
 
-  public Level(File filePath){
-    String[] file = loadStrings(LEVEL_PATH + filePath.getName());
-    String name = split(filePath.getName(), '.')[0];
-
+  public Level(String name){
+    String[] file = loadStrings(LEVEL_PATH + name + ".txt");
     mLevelMatrix = new int[file.length][split(file[0],' ').length];
 
     for(int i = 0; i < file.length; i++){

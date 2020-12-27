@@ -12,16 +12,16 @@ class DataDeleguate{
 
   public void loadLevels(){
     mLevels = new ArrayList<Level>();
-    File[] files = listFiles("/levels");
+    File[] files = listFiles(Level.LEVEL_PATH);
     for(int i = 0; i < files.length; i++){
-      Level level = new Level(files[i]);
+      Level level = new Level(split(files[i].getName(), '.')[0]);
       mLevels.add(level);
     }
   }
 
   public void loadPlayers(){
     mPlayers = new ArrayList<Player>();
-    File[] files = listFiles("/players");
+    File[] files = listFiles(Player.PLAYER_PATH);
     for(int i = 0; i < files.length; i++){
       Player player = new Player(split(files[i].getName(), '.')[0]);
       mPlayers.add(player);

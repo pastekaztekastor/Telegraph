@@ -1,5 +1,5 @@
 
-public class SetupEditorScreen extends Screen{
+public class SetupEditorScreen extends Screen implements ClickListener{
   private final ScreenDeleguate   mScreenDeleguate;
   private final DataDeleguate     mData;
   private final TextureDeleguate  mTextures;
@@ -17,6 +17,8 @@ public class SetupEditorScreen extends Screen{
     mEditordrawer     = new EditorDrawer(dataDeleguate, textures, level);
     mBackButton       = new TextButton(width/2 - 150, height - 50, "Retour", 36, mTextures.mLeftSelector);
     mCreateButton     = new TextButton(width/2 + 150, height - 50, "Créer", 36, mTextures.mLeftSelector);
+    mBackButton.addListener(this);
+    mCreateButton.addListener(this);
   }
 
   public void drawScreen(){
@@ -35,17 +37,24 @@ public class SetupEditorScreen extends Screen{
     textFont(mTextures.mFont, 18);
     text("Dessinez le niveau", width/2, 150.);
   }
-
-  public void mouseClicked(){
-    if(mBackButton.isMouseOnIt()){
+  
+  public void onClick(Button src){
+    if(src == mBackButton){
       // Le bouton Retour est cliqué, on affiche le menu
       mScreenDeleguate.setMenuScreen();
-    } else if(mCreateButton.isMouseOnIt()){
+    } else if(src == mCreateButton){
       // Le bouton créer est cliqué, on créé le niveau et on lance la page de création
       mEditordrawer.saveLevel();
       mData.mLevels.add(mCurrentlevel);
       mScreenDeleguate.setMenuScreen();
     }
+    mBackButton.removeListener(this);
+    mCreateButton.removeListener(this);
+  }
+
+  public void mouseClicked(){
+    mBackButton.isClick();
+    mCreateButton.isClick();
   }
 
   public void mouseReleased(){
