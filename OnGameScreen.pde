@@ -87,6 +87,6 @@ public class OnGameScreen extends Screen implements ClickListener{
   public void sizeChanged(){
     mLeveldrawer.setSize();
     mLeaveButton.setPosition(width/2 - 150, height - 50);
-    mLeaveButton.setPosition(width/2 + 150, height - 50);
+    mReloadButton.setPosition(width/2 + 150, height - 50);    
   }
 }
