@@ -6,15 +6,18 @@ public class LevelDrawer extends FrameDrawer{
     super(dataDeleguate, textures, level);
   }
 
+  // Renvoie le temps actuel effectué par le joueur
   public Time getScore(){
     return mTimer.getTime();
   }
 
+  // Actualise les données du niveau
   void updateLevelData() {
     updatePathTable();
     checkWin();
   }
 
+  // Vérifie si le niveau est complété
   private void checkWin() {
     for (int i = 0; i < mCurrentlevel.getHeight(); i++) {
       for (int j = 0; j < mCurrentlevel.getWidth(); j++) {
@@ -37,10 +40,12 @@ public class EditorDrawer extends FrameDrawer{
     super(dataDeleguate, textures, level);
   }
 
+  // Sauvegarde le nouveau liveau avec le chemin effectué
   public void saveLevel(){
     mCurrentlevel.generateLevelFile(mPathTable);
   }
 
+  // Actualise les données
   void updateLevelData() {
     updatePathTable();
   }
@@ -72,11 +77,14 @@ abstract class FrameDrawer {
     mTimer = new Timer();
   }
 
+  // Affiche le niveau
   public void draw() {
     drawLevel();
     drawPath();
   }
 
+  // Adapte la taille de la grille en fonction de la taille de la fenetre, en laissant une marge en haut et en bas
+  // Pour un affichage fin des cases, ces dernières doivent avoir une taille divisible par 8
   public void setSize() {
     float heightAvailable = height - 300;
     float widthAvailable = width;
@@ -98,6 +106,7 @@ abstract class FrameDrawer {
     mStartingY = height / 2 + 50 - ( mCurrentlevel.getHeight() * (mTileSize + mGap) - mGap ) / 2;
   }
 
+  // Dessine le chemin du joueur
   private void drawPath() {
     rectMode(CENTER);
     for (int i = 0; i < mCurrentPlayerPath.length; i++) {
@@ -119,6 +128,7 @@ abstract class FrameDrawer {
     rectMode(CORNER);
   }
 
+  // Dessine le niveau
   private void drawLevel() {
     Position tileHovered = getPositionOfTileHovered();
     if (tileHovered != null) {
@@ -146,6 +156,7 @@ abstract class FrameDrawer {
 
   abstract void updateLevelData();
 
+  // Vérifie si la position est comprise dans la grille
   private boolean isPositionInTheLevel(Position pos) {
     return pos.getX() >= 0
       && pos.getY() >= 0
@@ -168,6 +179,7 @@ abstract class FrameDrawer {
     }
   }
 
+  // tente d'ajouter la position sur la ligne
   private void addNewPointToPath(Position pos, boolean fromSingleTap, boolean tapHolded) {
     // Il ne doit pas y avoir une seule case présente sur la grille, pour commencer la ligne il faut donc que
     // le joueur glisse sa souris en maintenant le click sur au moins deux cases.
@@ -232,6 +244,7 @@ abstract class FrameDrawer {
     }
   }
 
+  // Change la taille (rogne) d'un tableau de Position
   private Position[] setNewSizeToTable(Position[] table, int newSize) {
     Position[] newTable = new Position[newSize];
     for (int i = 0; i < newTable.length; i++) {
@@ -240,6 +253,7 @@ abstract class FrameDrawer {
     return newTable;
   }
 
+  // Ajoute un élèment a un tableau de Position
   private Position[] appendTablePosition(Position[] table, Position element) {
     Position[] newTable = new Position[table.length + 1];
     for (int i = 0; i < table.length; i++) {
@@ -249,6 +263,7 @@ abstract class FrameDrawer {
     return newTable;
   }
 
+  // Renvoie la position de la case survolée par la souris
   private Position getPositionOfTileHovered() {
     float x = (mouseX - mStartingX + mTileSize / 8) / (mTileSize + mTileSize / 4);
     float y = (mouseY - mStartingY + mTileSize / 8) / (mTileSize + mTileSize / 4);
@@ -260,10 +275,12 @@ abstract class FrameDrawer {
     return new Position((int)x, (int)y);
   }
 
+  // Renvoie vrai si la souris est sur la grille
   public boolean isMouseOnTheGrid(){
      return getPositionOfTileHovered() != null;
   }
 
+  // Remet a 0 le compteur de temps ainsi que le chemin du joueur
   public void resetGame(){
     mTimer.stop();
     mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
@@ -271,6 +288,7 @@ abstract class FrameDrawer {
   }
 
   public void mouseReleased(){
+    // Vérifie si le chemin est assez long pour subsister
     if(mCurrentPlayerPath.length == 1){
       mCurrentPlayerPath = setNewSizeToTable(mCurrentPlayerPath, 0);
       updateLevelData();
@@ -280,6 +298,7 @@ abstract class FrameDrawer {
   }
 
   public void mouseDragged(){
+    // Tente d'ajouter un nouveau point a la ligne
     Position pos = getPositionOfTileHovered();
     if(pos != null){
       addNewPointToPath(pos, false, true);
@@ -287,6 +306,7 @@ abstract class FrameDrawer {
   }
 
   public void mousePressed(){
+    // Tente d'ajouter un nouveau point a la ligne
     Position pos = getPositionOfTileHovered();
     if(pos != null){
       addNewPointToPath(pos, true, true);

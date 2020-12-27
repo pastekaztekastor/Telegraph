@@ -70,9 +70,17 @@ public class SetupEditorScreen extends Screen implements ClickListener{
   }
 
   public void mouseMoved(){
+    
     // La souris bouge, je préviens mes boutons et mes champs de texte
-    if(!mBackButton.isMouseOnIt()
-        && !mCreateButton.isMouseOnIt()){
+    // Si la souris n'est sur aucun, je met le curseur par défaut
+    if(mBackButton.isMouseOnIt()) return;
+    else if(mCreateButton.isMouseOnIt()) return;
+    
+    if(mEditordrawer.isMouseOnTheGrid() && !mousePressed){
+      cursor(HAND);
+    } else if(mEditordrawer.isMouseOnTheGrid() && mousePressed){
+      cursor(MOVE);
+    } else {
       cursor(ARROW);
     }
   }

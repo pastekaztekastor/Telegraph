@@ -47,6 +47,7 @@ public class Player {
     rewritePlayerFile();
   }
 
+  // Réécris les données du joueur
   public void rewritePlayerFile() {
     String[] lines = new String[0];
     for (Map.Entry<String, Integer> score : mScores.entrySet()) {
@@ -55,6 +56,7 @@ public class Player {
     saveStrings(PLAYER_PATH + mPlayerName + ".txt", lines);
   }
 
+  // Renvoie le temps qu'a effectué le joueur sur le niveau mis en paramètre
   public Time getTimeAtLevel(String levelName) {
     if (mScores.get(levelName) == null) {
       return new Time(-1);

@@ -68,6 +68,7 @@ public class TextField{
     }
   }
 
+  // Change l'alignement du texte 
   public void setAlignment(int value){
     if(value >= 1 && value <= 3){
       mAlignment = value;
@@ -76,6 +77,7 @@ public class TextField{
     }
   }
 
+  // Change le style du champs de texte
   public void setStyle(int value){
     if(value >= 1 && value <= 2){
       mStyle = value;
@@ -84,11 +86,13 @@ public class TextField{
     }
   }
 
+  // Redéfinie la position du champs de texte
   public void setPosition(int x, int y){
     mPosX = x;
     mPosY = y;
   }
 
+  // Vérifie si le caractère en paramètre est compatible avec le filtre et l'ajoute en fonction
   public void aKeyWasPressed(char character){
     if(!mState){
       return;
@@ -109,6 +113,7 @@ public class TextField{
     }
   }
 
+  // Vérifie si la souris le survole 
   public boolean isMouseOnIt(){
     if(isMouseBetweenPos(mPosX, mPosX + mWidth, mPosY, mPosY + mHeight)){
       cursor(HAND);
@@ -134,10 +139,12 @@ public class TextField{
     }
   }
 
+  // Change l'état du champs de texte
   public void setActive(boolean state){
     mState = state;
   }
 
+  // Change le filtre du champs de texte
   public void setFilter(int filterType){
     if(filterType >= 1 && filterType <= 3){
       mFilter = filterType;
@@ -146,6 +153,7 @@ public class TextField{
     }
   }
 
+  // Renvoie le texte écris
   public String getText(){
     return mContent;
   }

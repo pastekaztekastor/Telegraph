@@ -12,6 +12,7 @@ abstract class Button{
   protected boolean   mIsHovered;
   protected boolean   mIsVisible;
 
+  // Liste des listeners
   protected final     EventListenerList mListeners;
 
   protected Button(float x, float y, float width, float height){
@@ -31,10 +32,12 @@ abstract class Button{
     }
   }
 
+  // Change la visibilité du bouton
   public void setVisibility(boolean value){
     mIsVisible = value;
   }
 
+  // Ajoute l'objet en paramètre comme écouteur des évènements du bouton
   public void addListener(ClickListener listener){
     mListeners.add(ClickListener.class, listener);
   }
@@ -63,11 +66,13 @@ abstract class Button{
     }
   }
 
+  // Change la position du bouton
   public void setPosition(float x, float y){
     mPosition.x = x;
     mPosition.y = y;
   }
 
+  // Renvoie vrai si la souris est sur sa "hitbox"
   public boolean isMouseOnIt(){
     if(mIsVisible && isMouseBetweenPos(mPosition.x - mWidth/2, mPosition.x + mWidth/2, mPosition.y - mHeight/2, mPosition.y + mHeight/2)){
       cursor(HAND);
@@ -105,10 +110,12 @@ public class ImageButton extends Button{
     mMode  = NONE;
   }
 
+  // Définit le mode d'animation du bouton
   public void setMode(int mode){
     mMode = mode;
   }
 
+  // Dessine le bouton
   protected void draw(){
     imageMode(CENTER);
     if(mMode == NONE) image(mImage, mPosition.x, mPosition.y);
@@ -147,12 +154,14 @@ public class TextButton extends Button{
     mRightSelector = rightSelector;
   }
 
+  // Change le texte du bouton
   public void setText(String text){
     textSize(mFontSize);
     mWidth      = textWidth(text);
     mText = text;
   }
 
+  // Dessine le bouton
   protected void draw(){
     textSize(mFontSize);
     textAlign(CENTER, CENTER);

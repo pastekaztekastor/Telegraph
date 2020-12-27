@@ -13,6 +13,7 @@ public class MenuScreen extends Screen implements ClickListener{
     mTextures = textures;
     // Génération des boutons
     mButtons = new TextButton[menuContent.length];
+    // génère les boutons su menu et les stoques
     for(int i = 0; i < menuContent.length; i++){
       mButtons[i] = new TextButton(width/2, height/2 - 100 + i * 50, menuContent[i], 36, mTextures.mLeftSelector, mTextures.mRightSelector);
       mButtons[i].addListener(this);

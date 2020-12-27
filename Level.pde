@@ -5,6 +5,7 @@ public class Level{
   String mLevelName;
   int[][] mLevelMatrix;
 
+  // Génère une instance de Level en fonction du nom du niveau
   public Level(String name){
     String[] file = loadStrings(LEVEL_PATH + name + ".txt");
     mLevelMatrix = new int[file.length][split(file[0],' ').length];
@@ -18,6 +19,7 @@ public class Level{
     mLevelName = name;
   }
 
+  // Génère un niveau vierge d'une taille et avec un nom donné
   public Level(int width, int height, String name){
     mLevelName = name;
     mLevelMatrix = new int[height][width];
@@ -28,6 +30,7 @@ public class Level{
     }
   }
 
+  // Génère le fichier du niveau avec un pattern défini
   public void generateLevelFile(int[][] mPathMatrix){
     mLevelMatrix = mPathMatrix;
     String[] lines = new String[mPathMatrix.length];
@@ -43,18 +46,22 @@ public class Level{
     saveStrings(LEVEL_PATH + mLevelName + ".txt", lines);
   }
 
+  // Renvoie la largeur du niveau
   public int getWidth(){
     return mLevelMatrix[0].length;
   }
 
+  // Renvoie la heuteur du niveau
   public int getHeight(){
     return mLevelMatrix.length;
   }
 
+  // Renvoie le nom du niveau
   public String getname(){
     return mLevelName;
   }
   
+  // Renvoie la valeur de la case a la position x,y
   public int getValueAt(int x, int y){
     return mLevelMatrix[y][x];
   }

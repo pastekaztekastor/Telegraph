@@ -7,16 +7,19 @@ public class Timer{
     mState = false;
   }
 
+  // Démarre le timer
   public void start(){
     mState = true;
     mMillisAtStart = millis();
   }
 
+  // Arrète le timer
   public void stop(){
     mTimeAtPause = mMillisAtStart;
     mState = false;
   }
 
+  // Met en pause le timer
   public void pause(){
     if(mState == true){
       mTimeAtPause = millis();
@@ -24,11 +27,13 @@ public class Timer{
     }
   }
 
+  // relance le timer
   public void resume(){
     mMillisAtStart += (millis() - mTimeAtPause);
     mState = true;
   }
 
+  // Renvoie le temps
   public Time getTime(){
     return mState ? new Time(millis() - mMillisAtStart) : new Time(mTimeAtPause - mMillisAtStart);
   }

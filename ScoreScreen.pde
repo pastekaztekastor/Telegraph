@@ -70,6 +70,7 @@ public class ScoreScreen extends Screen implements ClickListener{
     refreshList();
   }
 
+  // Change la visibilité des boutons en fonction de ce qui est affiché
   private void updateButtons(){
     if(mCurrentFirstDisplayedPlayer > 0){
       mUpButton.setVisibility(true);

@@ -22,6 +22,7 @@ public class TextureDeleguate{
   public final color mLineDotColor;
 
   public TextureDeleguate(){
+    // Charge toutes les textures, polices d'écritures, et couleurs
     mFont = createFont("SuperLegendBoy.ttf", 32);
 
     mRightSelector = loadImage("data/selecteur_droit.png");
@@ -46,6 +47,7 @@ public class TextureDeleguate{
     // Color palette : #FF050D #FFD338 #FF1F26 #05FF47 #122BFF
   }
 
+  // Affiche le titre du jeu
   public void drawTitle(){
     textFont(mFont, 64);
     textAlign(CENTER, CENTER);
@@ -55,6 +57,7 @@ public class TextureDeleguate{
     text("Telegraph", width/2, 80);
   }
 
+  // Affiche une case bkanche avec un point au milieu sensé représenté une station déconnectée
   public void drawTelegraphTile(float xPos, float yPos, float tileSize) {
     float tilePad = tileSize / 8.0;
     rectMode(CORNER);
@@ -66,6 +69,7 @@ public class TextureDeleguate{
     rect(xPos + tilePad * 3, yPos + tilePad * 3, tilePad * 2, tilePad * 2);
   }
 
+  // Affiche une case rouge sensé représenter une station connectée
   public void drawEmptyTile(float xPos, float yPos, float tileSize) {
     float tilePad = tileSize / 8.0;
     rectMode(CORNER);
@@ -75,6 +79,7 @@ public class TextureDeleguate{
     rect(xPos + tilePad, yPos + tilePad, tilePad * 6, tilePad * 6);
   }
 
+  // Affiche le sélecteur de case vert
   public void drawSelectorTile(float xPos, float yPos, float tileSize) {
     float tilePad = tileSize / 10.0;
     float cornerSize = tilePad*3 - second()%2*tilePad;

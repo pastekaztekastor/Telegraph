@@ -24,6 +24,7 @@ public class HelpScreen extends Screen implements ClickListener{
     sizeChanged();
   }
 
+  // Affiche l'écran
   public void drawScreen() {
     background(mTextures.mBackgroundColor);
     mTextures.drawTitle();
@@ -51,33 +52,41 @@ public class HelpScreen extends Screen implements ClickListener{
     }
   }
 
+  // Adapte le texte à la largeur mise en paramètre
   private final String[] adaptToWidth(String[] linesToAdapt, int textSize, int maxWidth){
     textSize(textSize);
     String[] newTable = new String[0];
     for(int i = 0; i < linesToAdapt.length; i++){
+      // coupe tout les mots de la ligne dans un nouveau tableau
       String[] words = split(linesToAdapt[i], ' ');
       for(int j = 0; j < words.length; j++){
-        String str = words[j];;
+        // Essaye d'ajouter les mots un par un et compare la taille totale avec la largeur définie
+        String str = words[j];
         for(int k = j+1; k < words.length; k++){
           if(textWidth(str + ' ' + words[k]) > maxWidth){
+            // Si la taille totale dépasse la largeur, changer de ligne
             break;
           } else {
             str += ' ' + words[k];
           }
           j = k;
         }
+        // Ajoute la ligne au tableau contenant toutes les lignes
         newTable = append(newTable, str);
       }
     }
     return newTable;
   }
 
+  // Méthode appelée si un bouton que l'instance écoute est appuyé
   public void onClick(Button src){
     if(src == mBackButton) mScreenDeleguate.setMenuScreen();
+    // Supprime l'instance des écouteurs
     mBackButton.removeListener(this);
   }
 
   public void mouseClicked(){
+    // Prévient le bouton qu'un click a été effectué
     mBackButton.isClick();
   }
 
@@ -90,6 +99,7 @@ public class HelpScreen extends Screen implements ClickListener{
   }
 
   public void sizeChanged(){
+    // Redéfini la position des boutons et la largeur du texte
     mAdaptedText = adaptToWidth(mMainText, 18, width - 50);
     mBackButton.setPosition(width/2, height - 50);
   }

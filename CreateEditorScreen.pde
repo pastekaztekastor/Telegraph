@@ -63,6 +63,7 @@ public class CreateEditorScreen extends Screen implements ClickListener{
     text(mErrorMessage, width/2, height - 100); 
   }
   
+  // Méthode appelée si un bouton que l'instance écoute est appuyé
   public void onClick(Button src){
     if(src == mBackButton){
       // Le bouton Retour est cliqué, on affiche le menu
@@ -96,6 +97,7 @@ public class CreateEditorScreen extends Screen implements ClickListener{
   }
   
   public void mouseClicked(){
+    // prévient les champs de texte et boutons
     mWidthTextField.isClick();
     mHeightTextField.isClick();
     mNameTextField.isClick();

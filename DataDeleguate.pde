@@ -10,6 +10,7 @@ class DataDeleguate{
     loadPlayers();
   }
 
+  // Charge tout les fichiers du dossier Levels et les mets dans l'ArrayList mLevels
   public void loadLevels(){
     mLevels = new ArrayList<Level>();
     File[] files = listFiles(Level.LEVEL_PATH);
@@ -19,6 +20,7 @@ class DataDeleguate{
     }
   }
 
+  // Charge tout les joueurs du dossier Players et les mets dans l'ArrayList mPlayers
   public void loadPlayers(){
     mPlayers = new ArrayList<Player>();
     File[] files = listFiles(Player.PLAYER_PATH);
@@ -28,10 +30,12 @@ class DataDeleguate{
     }
   }
 
+  // Renvoie les niveaux
   public ArrayList<Level> getLevels(){
     return mLevels;
   }
 
+  // Renvoie une arrayList contenant tout les joueurs ayant joué le niveau mis en paramètre
   ArrayList<Player> getPlayersOfLevel(int levelId){
     ArrayList<Player> list = new ArrayList<Player>();
     for(Player player : mPlayers){
@@ -44,7 +48,9 @@ class DataDeleguate{
     return list;
   }
 
+  // Défini le joueur courant
   public void setCurrentPlayerTo(String name){
+    // Vérifie si le joeur existe déja
     for(Player player : mPlayers){
       if(player.mPlayerName.equals(name)){
         // Le joueur existe déja, on le récupère
@@ -57,6 +63,7 @@ class DataDeleguate{
     mPlayers.add(mCurrentPlayer);
   }
 
+  // renvoie l'instance du joueur courant
   public Player getCurrentplayer(){
     if(this.mCurrentPlayer == null){
       throw new Error("Aucun joueur courant");
